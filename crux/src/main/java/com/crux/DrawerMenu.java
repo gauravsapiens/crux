@@ -1,10 +1,12 @@
 package com.crux;
 
 /**
+ * A class that defines menu items used in drawer. Used in {@link com.crux.activity.DrawerActivity}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
-public class LauncherOption {
+public class DrawerMenu {
 
     private int index;
     private int groupIndex;
@@ -12,7 +14,7 @@ public class LauncherOption {
     private int imageResourceId;
     private Class intentClass;
 
-    public LauncherOption(int index, int groupIndex, String title, int imageResourceId, Class intentClass) {
+    public DrawerMenu(int index, int groupIndex, String title, int imageResourceId, Class intentClass) {
         this.index = index;
         this.groupIndex = groupIndex;
         this.title = title;

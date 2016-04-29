@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.crux.ListItem;
-import com.crux.view.base.CruxImageView;
 import com.crux.R;
+import com.crux.view.base.CruxImageView;
 
 /**
  * @author gauravarora
  * @since 27/04/16.
  */
-public class ImageTitleSubtitleItem implements ListItem{
+public class ImageTitleSubtitleItem implements ListItem {
 
     private String mImageUrl;
     private int mImageResourceId;
@@ -23,13 +23,13 @@ public class ImageTitleSubtitleItem implements ListItem{
     private String mSubtitle;
     private Object mUserInfo;
 
-    public ImageTitleSubtitleItem(String title, String subtitle, String imageUrl){
+    public ImageTitleSubtitleItem(String title, String subtitle, String imageUrl) {
         this.mTitle = title;
         this.mSubtitle = subtitle;
         this.mImageUrl = imageUrl;
     }
 
-    public ImageTitleSubtitleItem(String title, String subtitle, int imageResourceId){
+    public ImageTitleSubtitleItem(String title, String subtitle, int imageResourceId) {
         this.mTitle = title;
         this.mSubtitle = subtitle;
         this.mImageResourceId = imageResourceId;
@@ -50,7 +50,7 @@ public class ImageTitleSubtitleItem implements ListItem{
         viewHolder.imageView.setImageURI(mImageResourceId, mImageUrl);
     }
 
-    public void setUserInfo(Object userInfo){
+    public void setUserInfo(Object userInfo) {
         this.mUserInfo = userInfo;
     }
 

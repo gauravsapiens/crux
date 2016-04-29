@@ -21,6 +21,8 @@ import com.crux.view.item.ContainerItem;
 import java.util.List;
 
 /**
+ * A fragment that takes care of rendering {@link RecyclerView} using {@link ListItem}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

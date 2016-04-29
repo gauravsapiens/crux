@@ -36,7 +36,7 @@ public class TextItem implements ListItem {
         viewHolder.textView.setText(mText);
     }
 
-    public void setUserInfo(Object userInfo){
+    public void setUserInfo(Object userInfo) {
         mUserInfo = userInfo;
     }
 

@@ -7,13 +7,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.crux.LauncherOption;
+import com.crux.DrawerMenu;
 import com.crux.R;
 import com.crux.util.CollectionUtils;
 
 import java.util.List;
 
 /**
+ * An activity that takes care of rendering navigation drawer. Toggle drawer using {@link #isNavDrawerEnabled() isNavDrawerEnabled}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
@@ -65,7 +67,7 @@ public class DrawerActivity extends BaseActivity {
         return true;
     }
 
-    protected List<LauncherOption> getLauncherOptions(){
+    protected List<DrawerMenu> getLauncherOptions() {
         return CollectionUtils.newArrayList();
     }
 

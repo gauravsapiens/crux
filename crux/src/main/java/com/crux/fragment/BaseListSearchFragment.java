@@ -11,10 +11,13 @@ import android.view.MenuItem;
 import com.crux.R;
 
 /**
+ * An extension of {@link BaseMutableListFragment} that creates search menu & allows searching. Implement list items using
+ * {@link com.crux.ListSearchableItem} to allow searching.
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
-public abstract class BaseListSearchFragment extends BaseListFragment implements SearchView.OnQueryTextListener{
+public abstract class BaseListSearchFragment extends BaseMutableListFragment implements SearchView.OnQueryTextListener {
 
     private static final String RetainDataKeySearchText = "searchText";
 

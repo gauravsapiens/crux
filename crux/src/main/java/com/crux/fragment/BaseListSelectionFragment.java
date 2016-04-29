@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.crux.ListItem;
 import com.crux.ListSelectableItem;
+import com.crux.R;
 import com.crux.util.CollectionUtils;
 import com.crux.util.ToastUtils;
 
@@ -12,13 +13,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.crux.R;
-
 /**
+ * An extension of {@link BaseListSearchFragment} that allows selection of items. Implement items using {@link ListSelectableItem} to enable
+ * selection
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
-public abstract class BaseListSelectionFragment extends BaseListSearchFragment{
+public abstract class BaseListSelectionFragment extends BaseListSearchFragment {
 
     public interface Callbacks {
         public void onItemSelected(BaseListSelectionFragment fragment, List<Object> selectedValues);

@@ -6,13 +6,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.crux.LauncherOption;
+import com.crux.DrawerMenu;
 import com.crux.util.CollectionUtils;
 import com.crux.util.IntentUtils;
 
 import java.util.List;
 
 /**
+ * A Presenter for navigation drawer
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
@@ -21,27 +23,27 @@ public class NavigationPresenter {
     private BaseActivity mBaseActivity;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
-    private List<LauncherOption> mLauncherOptions;
+    private List<DrawerMenu> mDrawerMenus;
 
-    public NavigationPresenter(BaseActivity baseActivity, DrawerLayout drawerLayout, NavigationView navigationView, List<LauncherOption> launcherOptions) {
+    public NavigationPresenter(BaseActivity baseActivity, DrawerLayout drawerLayout, NavigationView navigationView, List<DrawerMenu> drawerMenus) {
         this.mBaseActivity = baseActivity;
         this.mDrawerLayout = drawerLayout;
         this.mNavigationView = navigationView;
-        this.mLauncherOptions = launcherOptions;
+        this.mDrawerMenus = drawerMenus;
     }
 
     public void setup() {
-        if(CollectionUtils.isEmpty(mLauncherOptions)){
+        if (CollectionUtils.isEmpty(mDrawerMenus)) {
             return;
         }
 
         Class clazz = mBaseActivity.getClass();
         Menu menu = mNavigationView.getMenu();
-        for (LauncherOption launcherOption : mLauncherOptions) {
-            MenuItem menuItem = menu.add(launcherOption.getImageResourceId(), launcherOption.getIndex(), launcherOption.getIndex(), launcherOption.getTitle());
-            menuItem.setIcon(launcherOption.getImageResourceId());
+        for (DrawerMenu drawerMenu : mDrawerMenus) {
+            MenuItem menuItem = menu.add(drawerMenu.getImageResourceId(), drawerMenu.getIndex(), drawerMenu.getIndex(), drawerMenu.getTitle());
+            menuItem.setIcon(drawerMenu.getImageResourceId());
             menuItem.setCheckable(true);
-            if (clazz != null && clazz.equals(launcherOption.getIntentClass())) {
+            if (clazz != null && clazz.equals(drawerMenu.getIntentClass())) {
                 menuItem.setChecked(true);
             }
         }
@@ -50,12 +52,12 @@ public class NavigationPresenter {
     }
 
     private boolean onNavigationButtonSelected(MenuItem menuItem) {
-        LauncherOption launcherOption = getLauncherOption(menuItem.getOrder());
-        if(launcherOption == null){
+        DrawerMenu drawerMenu = getLauncherOption(menuItem.getOrder());
+        if (drawerMenu == null) {
             return false;
         }
 
-        launchNodeActivity(launcherOption.getIntentClass());
+        launchNodeActivity(drawerMenu.getIntentClass());
         mDrawerLayout.closeDrawers();
         return true;
     }
@@ -66,10 +68,10 @@ public class NavigationPresenter {
         mBaseActivity.startActivity(intent);
     }
 
-    private LauncherOption getLauncherOption(int index){
-        for (LauncherOption launcherOption: mLauncherOptions){
-            if(launcherOption.getIndex() == index){
-                return launcherOption;
+    private DrawerMenu getLauncherOption(int index) {
+        for (DrawerMenu drawerMenu : mDrawerMenus) {
+            if (drawerMenu.getIndex() == index) {
+                return drawerMenu;
             }
         }
         return null;

@@ -6,10 +6,12 @@ import android.support.v4.app.FragmentManager;
 import java.util.List;
 
 /**
+ * An adapter that takes care rendering {@link FragmentInfo}. Used in {@link com.crux.activity.PagerActivity}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
-public class PagerAdapter extends FragmentStatePagerAdapter{
+public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private List<FragmentInfo> mFragmentInfos;
 
@@ -48,7 +50,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter{
         return mFragments.get(position);
     }
 
-    public void setFragmentInfos(List<FragmentInfo> fragmentInfos){
+    public void setFragmentInfos(List<FragmentInfo> fragmentInfos) {
         this.mFragmentInfos = fragmentInfos;
     }
 

@@ -33,13 +33,13 @@ public class ViewUtils {
         textView.setText(text);
     }
 
-    public static String getText(EditText editText){
-        if(editText == null){
+    public static String getText(EditText editText) {
+        if (editText == null) {
             return null;
         }
 
         Editable editable = editText.getText();
-        if(editable == null){
+        if (editable == null) {
             return null;
         }
         return editable.toString();

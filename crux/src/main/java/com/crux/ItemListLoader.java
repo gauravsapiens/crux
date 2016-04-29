@@ -5,6 +5,9 @@ import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.List;
 
+/**
+ * Implementation of {@link AsyncTaskLoader} that takes care of loading list of items using {@link ItemLoaderCallbacks}
+ */
 public class ItemListLoader<T> extends AsyncTaskLoader<List<T>> {
 
     private ItemLoaderCallbacks<T> mItemLoader;

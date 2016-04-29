@@ -17,10 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * An adapter for rendering {@link ListItem} in {@link RecyclerView}
+ *
  * @author gauravarora
+ * @see com.crux.fragment.BaseListFragment
  * @since 27/04/16.
  */
-public class ListAdapter extends RecyclerView.Adapter{
+public class ListAdapter extends RecyclerView.Adapter {
 
     private OnItemClickListener mOnItemClickListener;
     private List<ListItem> mOriginalItems;
@@ -87,17 +90,17 @@ public class ListAdapter extends RecyclerView.Adapter{
         initializeItemsWithType();
     }
 
-    public void addItem(ListItem item, int position){
+    public void addItem(ListItem item, int position) {
         mItems.add(position, item);
         initializeItemsWithType();
     }
 
-    public void removeItem(int position){
+    public void removeItem(int position) {
         mItems.remove(position);
         initializeItemsWithType();
     }
 
-    public void addItems(List<ListItem> items){
+    public void addItems(List<ListItem> items) {
         mItems.addAll(items);
         initializeItemsWithType();
     }

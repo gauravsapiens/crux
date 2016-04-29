@@ -10,7 +10,7 @@ import com.facebook.common.internal.Preconditions;
  * @author gauravarora
  * @since 27/04/16.
  */
-public class BaseFragment extends Fragment{
+public class BaseFragment extends Fragment {
 
     public Object getCallbacks(Class clazz) {
         Preconditions.checkNotNull(clazz, "Class cannot be null");

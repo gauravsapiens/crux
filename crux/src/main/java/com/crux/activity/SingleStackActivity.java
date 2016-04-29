@@ -3,10 +3,12 @@ package com.crux.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.crux.util.FragmentUtils;
 import com.crux.R;
+import com.crux.util.FragmentUtils;
 
 /**
+ * An activity that helps in pushing & popping {@link Fragment}. Single stack since it always has one active fragment
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

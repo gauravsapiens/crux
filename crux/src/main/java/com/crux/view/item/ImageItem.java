@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.crux.ListItem;
 import com.crux.R;
@@ -42,7 +41,7 @@ public class ImageItem implements ListItem {
         viewHolder.imageView.setImageURI(mImageResourceId, mImageUrl);
     }
 
-    public void setUserInfo(Object userInfo){
+    public void setUserInfo(Object userInfo) {
         mUserInfo = userInfo;
     }
 

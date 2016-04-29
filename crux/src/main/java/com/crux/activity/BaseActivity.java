@@ -13,8 +13,14 @@ import android.view.ViewStub;
 import com.crux.R;
 
 /**
- * Standards : app_bar, toolbar, app_bar_view_stub, content_bar_view_stub : Whoever overrides getParentLayout() should provide same
- * naming convention for these
+ * An activity that serves as base for all other activities. Extends from {@link AppCompatActivity}. Provides support for {@link CoordinatorLayout}
+ * Also, splits main view into toolbar & content-view, providing greater flexibility for customization.
+ * <p>
+ * Toolbar can be enabled/disabled using {@link #isToolbarEnabled()}. Also, it can be customized using {@link #getAppBarLayout()}
+ * To add contentView call, {@link #addContentView(int)}
+ * <p>
+ * Also, if you want to replace the parent layout, like in the case of ViewPagerActivity, simply override {@link #getParentLayout()}. Take
+ * care of using app_bar, toolbar, app_bar_view_stub, content_bar_view_stub as standard naming conventions
  *
  * @author gauravarora
  * @since 27/04/16.

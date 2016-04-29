@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
-import com.crux.adapter.PagerAdapter;
-
-import java.util.List;
 import com.crux.R;
+import com.crux.adapter.PagerAdapter;
 import com.crux.util.CollectionUtils;
 import com.crux.view.base.CruxImageView;
 
+import java.util.List;
+
 /**
+ * An activity that takes care of rendering {@link android.support.v4.view.ViewPager ViewPager}
+ *
  * @author gauravarora
+ * @see {@link #getFragmentInfos}
  * @since 27/04/16.
  */
 public abstract class PagerActivity extends DrawerActivity {

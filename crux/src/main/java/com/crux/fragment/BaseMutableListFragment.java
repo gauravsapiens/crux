@@ -12,6 +12,8 @@ import com.crux.util.CollectionUtils;
 import java.util.List;
 
 /**
+ * An extension of {@link BaseListFragment} with support for pagination & pull-to-refresh
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
@@ -64,7 +66,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
             break;
             case PAGINATED: {
                 removeFooter();
-                if(CollectionUtils.isEmpty(listItems)){
+                if (CollectionUtils.isEmpty(listItems)) {
                     mAllItemsLoaded = true;
                 }
                 mAdapter.addItems(listItems);
@@ -85,7 +87,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
         getItemListLoader().forceLoad();
     }
 
-    protected boolean isPaginationEnabled(){
+    protected boolean isPaginationEnabled() {
         return false;
     }
 

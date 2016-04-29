@@ -14,7 +14,7 @@ public class CollectionUtils {
     }
 
     public static int size(Collection collection) {
-        if(isEmpty(collection)){
+        if (isEmpty(collection)) {
             return 0;
         }
         return collection.size();

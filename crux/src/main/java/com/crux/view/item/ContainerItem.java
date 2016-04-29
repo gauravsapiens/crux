@@ -15,7 +15,7 @@ public class ContainerItem implements ListItem {
 
     private View mView;
 
-    public ContainerItem(View view){
+    public ContainerItem(View view) {
         mView = view;
     }
 

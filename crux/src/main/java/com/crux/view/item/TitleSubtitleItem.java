@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.crux.ListItem;
-import com.crux.util.ViewUtils;
 import com.crux.R;
+import com.crux.util.ViewUtils;
 
 /**
  * @author gauravarora
