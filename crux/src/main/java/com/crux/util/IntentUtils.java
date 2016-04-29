@@ -3,6 +3,8 @@ package com.crux.util;
 import android.content.Intent;
 
 /**
+ * Utils associated with {@link Intent}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
@@ -26,9 +27,11 @@ android {
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'https://dl.bintray.com/raizlabs/Libraries' }
     }
     dependencies {
         classpath 'me.tatarka:gradle-retrolambda:3.1.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 apply plugin: 'me.tatarka.retrolambda'
@@ -39,4 +42,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:+'
     compile 'com.facebook.fresco:fresco:+'
+    compile 'com.google.code.gson:gson:+'
+
+    apt 'com.raizlabs.android:DBFlow-Compiler:2.2.1'
+    compile "com.raizlabs.android:DBFlow-Core:2.2.1"
+    compile "com.raizlabs.android:DBFlow:2.2.1"
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Utils for {@link Map}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

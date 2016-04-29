@@ -5,7 +5,11 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 
+import com.crux.Crux;
+
 /**
+ * Utils for android resources
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
@@ -48,7 +52,7 @@ public class ResourceUtils {
     }
 
     private static Context getApplicationContext() {
-        return null;
+        return Crux.getContext();
     }
 
 }

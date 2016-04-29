@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.Toast;
 
 /**
+ * Utilities for {@link Toast} & {@link Snackbar}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
 public class ToastUtils {
 
-    public static void show(View rootView, String text) {
+    public static void showSnackBar(View rootView, String text) {
         Snackbar.make(rootView, text, Snackbar.LENGTH_LONG).show();
     }
 

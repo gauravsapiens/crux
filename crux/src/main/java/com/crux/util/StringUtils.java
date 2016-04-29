@@ -3,6 +3,8 @@ package com.crux.util;
 import java.util.Collection;
 
 /**
+ * Utilities associated with {@link String}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

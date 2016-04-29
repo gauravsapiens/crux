@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import com.crux.activity.BaseActivity;
 
 /**
+ * Utils for {@link Fragment}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

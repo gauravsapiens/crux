@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * Utils for {@link Collection}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
@@ -21,11 +23,11 @@ public class CollectionUtils {
     }
 
     public static <E> ArrayList<E> newArrayList() {
-        return new ArrayList<E>();
+        return new ArrayList<>();
     }
 
     public static <E> ArrayList<E> newArrayListWithExpectedCapacity(int capacity) {
-        return new ArrayList<E>(capacity);
+        return new ArrayList<>(capacity);
     }
 
 }

@@ -31,7 +31,11 @@ public abstract class PagerActivity extends DrawerActivity {
         super.onCreate(savedInstanceState);
         addContentView(R.layout.activity_pager);
 
-        setup();
+        setupViewPager();
+        customizeActivity();
+    }
+
+    protected void customizeActivity(){
     }
 
     @Override
@@ -39,12 +43,10 @@ public abstract class PagerActivity extends DrawerActivity {
         return R.layout.app_bar_tabbed;
     }
 
-    private void setup() {
+    private void setupViewPager() {
         mToolbarImage = (CruxImageView) findViewById(R.id.backdrop);
-
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-
         mFragmentInfos = getFragmentInfos();
         if (CollectionUtils.isEmpty(mFragmentInfos)) {
             return;
@@ -52,7 +54,6 @@ public abstract class PagerActivity extends DrawerActivity {
 
         mAdapter = new PagerAdapter(getSupportFragmentManager(), mFragmentInfos);
         mViewPager.setAdapter(mAdapter);
-
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }

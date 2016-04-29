@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
+ * Utilities associated with {@link View}
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

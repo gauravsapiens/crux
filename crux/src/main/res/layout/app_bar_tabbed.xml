@@ -15,7 +15,7 @@
         app:expandedTitleMarginStart="48dp"
         app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        <com.collegiate.view.base.ColImageView
+        <com.crux.view.base.CruxImageView
             android:id="@+id/backdrop"
             android:layout_width="match_parent"
             android:layout_height="210dp"
