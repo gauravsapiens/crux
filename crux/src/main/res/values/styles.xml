@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Toolbar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background" tools:targetApi="11">?colorPrimary</item>
+        <item name="background">?colorPrimary</item>
+        <item name="android:backgroundStacked" tools:targetApi="14">?colorPrimary</item>
+        <item name="backgroundStacked">?colorPrimary</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="android:titleTextStyle" tools:targetApi="11">@style/ToolbarTitleText</item>
+        <item name="titleTextStyle">@style/ToolbarTitleText</item>
+    </style>
+
+    <style name="ToolbarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="NavigationDrawer">
+        <item name="itemTextColor">@android:color/black</item> 
+        <item name="itemIconTint">@android:color/black</item> 
+    </style>
+
+    <style name="LayoutBase">
+        <item name="android:paddingLeft">@dimen/padding_left</item>
+        <item name="android:paddingTop">@dimen/padding_top</item>
+        <item name="android:paddingBottom">@dimen/padding_bottom</item>
+        <item name="android:paddingRight">@dimen/padding_right</item>
+    </style>
+
+    <style name="ListItemTitle">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/list_item_title</item>
+    </style>
+
+    <style name="ListItemSubtitle">
+        <item name="android:textSize">@dimen/text_medium_minus</item>
+        <item name="android:textColor">@color/list_item_subtitle</item>
+    </style>
+
+</resources>

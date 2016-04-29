@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/LayoutBase"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <com.crux.view.base.CruxImageView
+        android:id="@+id/image"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        app:actualImageScaleType="centerCrop" />
+
+    <com.crux.view.base.CruxTextView
+        android:id="@+id/title"
+        style="@style/ListItemTitle"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+    <com.crux.view.base.CruxTextView
+        android:id="@+id/subtitle"
+        style="@style/ListItemSubtitle"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

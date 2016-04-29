@@ -1,0 +1,97 @@
+package com.crux.fragment;
+
+import android.os.Bundle;
+import android.support.v4.content.Loader;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import com.crux.ListItem;
+import com.crux.R;
+import com.crux.util.CollectionUtils;
+
+import java.util.List;
+
+/**
+ * @author gauravarora
+ * @since 27/04/16.
+ */
+public abstract class BaseMutableListFragment extends BaseListFragment {
+
+    public enum Mode {
+        FIRST_TIME,
+        PAGINATED,
+        PULL_TO_REFRESH
+    }
+
+    private Mode mMode = Mode.FIRST_TIME;
+    private int mPageNumber = 1;
+    private boolean mAllItemsLoaded;
+
+    private OnScrollListener mOnScrollListener = new OnScrollListener() {
+        @Override
+        public void onScrolledToBottom() {
+            if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
+                return;
+            }
+            loadNextPage();
+        }
+    };
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView.addOnScrollListener(mOnScrollListener);
+    }
+
+    @Override
+    public final List<ListItem> loadListItemsInBackground() {
+        return loadListItems(mMode, mPageNumber);
+    }
+
+    protected abstract List<ListItem> loadListItems(Mode mode, Object extras);
+
+    @Override
+    public void onLoadFinished(Loader<List<ListItem>> listLoader, List<ListItem> listItems) {
+        setListShown(true);
+        mIsFetchingData = false;
+
+        switch (mMode) {
+            case FIRST_TIME:
+            case PULL_TO_REFRESH: {
+                mAdapter.setRecyclableItems(listItems);
+                mAdapter.notifyDataSetChanged();
+            }
+            break;
+            case PAGINATED: {
+                removeFooter();
+                if(CollectionUtils.isEmpty(listItems)){
+                    mAllItemsLoaded = true;
+                }
+                mAdapter.addItems(listItems);
+                mAdapter.notifyDataSetChanged();
+            }
+            break;
+        }
+
+        onLoadFinished();
+    }
+
+    protected void loadNextPage() {
+        mMode = Mode.PAGINATED;
+        mPageNumber = mPageNumber + 1;
+        mIsFetchingData = true;
+
+        addFooter(getLoadingFooterView());
+        getItemListLoader().forceLoad();
+    }
+
+    protected boolean isPaginationEnabled(){
+        return false;
+    }
+
+    private View getLoadingFooterView() {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        return inflater.inflate(R.layout.view_loading_footer, mRecyclerView, false);
+    }
+
+}

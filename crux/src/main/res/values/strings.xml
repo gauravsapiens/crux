@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Crux</string>
+
+    <string name="retry">Retry</string>
+    <string name="search">Search</string>
+    <string name="done">Done</string>
+
+    <string name="no_results_message">No Results</string>
+    <string name="error_empty_selection_not_allowed">Empty Selection Not Allowed</string>
+
+</resources>
