@@ -1,1 +1,1 @@
-include ':crux'
+include ':happy-shop', ':crux'

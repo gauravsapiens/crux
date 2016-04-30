@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.crux.view.base.CruxImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+            <com.crux.view.base.CruxTextView
+                android:id="@+id/title"
+                style="@style/Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_large"
+                android:layout_marginTop="@dimen/padding_top"
+                android:textColor="@android:color/black" />
+
+            <com.crux.view.base.CruxTextView
+                android:id="@+id/subtitle"
+                style="@style/Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/divider"
+                style="@style/Divider" />
+
+            <com.crux.view.base.CruxTextView
+                android:id="@+id/description"
+                style="@style/Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/list_item_subtitle" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.crux.view.base.CruxButton
+            android:id="@+id/button_cart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="40"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/add_to_cart"
+            android:textColor="@android:color/white" />
+
+        <com.crux.view.base.CruxButton
+            android:id="@+id/button_checkout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="60"
+            android:background="@color/colorAccent"
+            android:text="@string/express_checkout"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

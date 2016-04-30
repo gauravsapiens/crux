@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">Happy Shop</string>
+    <string name="product_detail">Product Detail</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="express_checkout">Buy Now</string>
+
+    <string name="cart">Cart</string>
+
+</resources>
