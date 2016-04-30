@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.crux.ItemListLoader;
 import com.crux.ListItem;
@@ -60,6 +61,9 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         mEmptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
         mEmptyViewStub.setLayoutResource(getEmptyLayoutId());
         mEmptyView = mEmptyViewStub.inflate();
+
+        TextView emptyTextView = (TextView) mRootView.findViewById(R.id.empty_text);
+        emptyTextView.setText(getEmptyText());
 
         return mRootView;
     }
@@ -220,6 +224,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     protected int getEmptyLayoutId() {
         return R.layout.view_empty_list;
+    }
+
+    protected String getEmptyText() {
+        return "No Results";
     }
 
     protected void showEmptyView() {

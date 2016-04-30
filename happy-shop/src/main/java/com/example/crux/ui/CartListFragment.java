@@ -36,7 +36,18 @@ public class CartListFragment extends BaseMutableListFragment {
 
     }
 
-    protected Collection<CartElement> getData() {
+    @Override
+    protected String getEmptyText() {
+        return "No items added to cart";
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshLoader(true);
+    }
+
+    private Collection<CartElement> getData() {
         return new CartDao().findAll();
     }
 
