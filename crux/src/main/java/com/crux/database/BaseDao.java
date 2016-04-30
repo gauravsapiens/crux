@@ -1,19 +1,19 @@
 package com.crux.database;
 
+import com.activeandroid.Model;
+import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 import com.crux.util.StringUtils;
-import com.raizlabs.android.dbflow.sql.language.Delete;
-import com.raizlabs.android.dbflow.sql.language.Select;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Collection;
 
 /**
- * Base implementation of {@link Dao} using DBFlow <a href="https://github.com/Raizlabs/DBFlow</a>
+ * Base implementation of {@link Dao} using ActiveAndroid <a href="https://github.com/pardom/ActiveAndroid</a>
  *
  * @author gauravarora
  * @since 29/04/16.
  */
-public class BaseDao<T extends BaseModel> implements Dao<T> {
+public class BaseDao<T extends Model> implements Dao<T> {
 
     private Class<T> mClass;
 
@@ -29,7 +29,7 @@ public class BaseDao<T extends BaseModel> implements Dao<T> {
 
     @Override
     public T update(T object) {
-        object.update();
+        object.save();
         return object;
     }
 
@@ -44,7 +44,7 @@ public class BaseDao<T extends BaseModel> implements Dao<T> {
         new Delete()
                 .from(getBeanClass())
                 .where(getIdFieldName() + "=?", objectId)
-                .queryClose();
+                .execute();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BaseDao<T extends BaseModel> implements Dao<T> {
         return new Select()
                 .from(getBeanClass())
                 .where(getIdFieldName() + "=?", objectId)
-                .querySingle();
+                .executeSingle();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BaseDao<T extends BaseModel> implements Dao<T> {
         return new Select()
                 .from(getBeanClass())
                 .where(getIdFieldName() + " IN ", StringUtils.delimiter(id, ','))
-                .queryList();
+                .execute();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class BaseDao<T extends BaseModel> implements Dao<T> {
         return new Select()
                 .all()
                 .from(getBeanClass())
-                .queryList();
+                .execute();
     }
 
     @Override

@@ -2,8 +2,9 @@ package com.crux;
 
 import android.content.Context;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Configuration;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.raizlabs.android.dbflow.config.FlowManager;
 
 /**
  * @author gauravarora
@@ -16,8 +17,12 @@ public class Crux {
     public static void initialize(Context context) {
         sContext = context;
 
+        //initialize ActiveAndroid
+        Configuration configuration = new Configuration.Builder(context).setDatabaseName("crux").setDatabaseVersion(1).create();
+        ActiveAndroid.initialize(configuration);
+
+        //intialize Fresco
         Fresco.initialize(context);
-        FlowManager.init(context);
     }
 
     public static Context getContext() {

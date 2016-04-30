@@ -1,6 +1,8 @@
 package com.crux.util;
 
 /**
+ * Utils associated with class
+ *
  * @author gauravarora
  * @since 27/04/16.
  */
