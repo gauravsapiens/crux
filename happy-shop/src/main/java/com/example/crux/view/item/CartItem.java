@@ -39,10 +39,12 @@ public class CartItem implements ListItem {
         if (product == null) {
             return;
         }
+
+        float amount = product.getPrice() * mCartElement.getQuantity();
         viewHolder.imageView.setImageURI(product.getImageUrl());
         viewHolder.titleView.setText(product.getName());
-        viewHolder.subtitleView.setText("S$ " + product.getPrice());
-        viewHolder.quantity.setText(mCartElement.getQuantity() + "");
+        viewHolder.quantityView.setText("Quantity: " + mCartElement.getQuantity() + "");
+        viewHolder.priceView.setText("S$ " + amount);
     }
 
     @Override
@@ -54,15 +56,15 @@ public class CartItem implements ListItem {
 
         CruxImageView imageView;
         TextView titleView;
-        TextView subtitleView;
-        TextView quantity;
+        TextView priceView;
+        TextView quantityView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = (CruxImageView) itemView.findViewById(com.crux.R.id.image);
-            titleView = (TextView) itemView.findViewById(com.crux.R.id.title);
-            subtitleView = (TextView) itemView.findViewById(com.crux.R.id.subtitle);
-            quantity = (TextView) itemView.findViewById(R.id.quantity);
+            imageView = (CruxImageView) itemView.findViewById(R.id.image);
+            titleView = (TextView) itemView.findViewById(R.id.title);
+            priceView = (TextView) itemView.findViewById(R.id.price);
+            quantityView = (TextView) itemView.findViewById(R.id.quantity);
         }
     }
 
