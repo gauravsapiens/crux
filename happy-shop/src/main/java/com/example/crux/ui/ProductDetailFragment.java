@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.crux.fragment.BaseFragment;
+import com.crux.util.ToastUtils;
 import com.crux.view.base.CruxImageView;
 import com.example.crux.IntentHelper;
 import com.example.crux.R;
@@ -22,6 +23,7 @@ import com.example.crux.database.CartDao;
  */
 public class ProductDetailFragment extends BaseFragment {
 
+    View mRootView;
     private CruxImageView mImageView;
     private TextView mTitleView;
     private TextView mSubtitleView;
@@ -33,7 +35,7 @@ public class ProductDetailFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mRootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_product_detail, null);
+        mRootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_product_detail, null);
         mImageView = (CruxImageView) mRootView.findViewById(R.id.image);
         mTitleView = (TextView) mRootView.findViewById(R.id.title);
         mSubtitleView = (TextView) mRootView.findViewById(R.id.subtitle);
@@ -64,8 +66,9 @@ public class ProductDetailFragment extends BaseFragment {
     }
 
     private void onAddToCartButtonPressed(Product product) {
+        ToastUtils.showSnackBar(mRootView, "Product added to cart");
         int productCount = 1;
-        CartElement cartElement = (CartElement) mCartDao.findById(product.getId());
+        CartElement cartElement = mCartDao.findById(product.getId());
         if (cartElement != null) {
             productCount = cartElement.getQuantity() + 1;
         }

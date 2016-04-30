@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="40"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/selector_button_add_cart"
             android:text="@string/add_to_cart"
             android:textColor="@android:color/white" />
 
@@ -71,7 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="60"
-            android:background="@color/colorAccent"
+            android:background="@drawable/selector_button_checkout"
             android:text="@string/express_checkout"
             android:textColor="@android:color/white" />
 
