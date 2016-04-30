@@ -11,7 +11,7 @@ import com.activeandroid.annotation.Table;
 @Table(name = "CartItem")
 public class CartElement extends Model {
 
-    @Column(name = "productId")
+    @Column(name = "productId", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     private String id;
 
     @Column
