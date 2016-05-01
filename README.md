@@ -1,10 +1,14 @@
 # Crux
 A bootstrap library for Android that takes care of all the heavy lifting
 
+## Setup
+
+- Call `Crux.initialize(Context)` in Application's `onCreate` or `Crux.initialize(Context, Configuration)` if you wish to override default configuration
+
 ## API
 
 - **Activity** - SingleStackActivity, DrawerActivity, PagerActivity
-- **Fragment** - BaseListFragment, BaseListSearchFragment, BaseListSelectableFragment
+- **Fragment** - BaseListFragment, BaseMutableListFragment, BaseListSearchFragment, BaseListSelectableFragment
 - **View** - CruxTextView, CruxEditText, CruxImageView, CruxButton, CruxImageButton
 - **Database** - BaseDao, DataDump
 - **Utils** - ClassUtils, CollectionUtils, FragmentUtil, IOUtils, MapUtils, PreConditions, ResourceUtils, StringUtils, ToastUtils, ViewUtils
@@ -27,8 +31,14 @@ A bootstrap library for Android that takes care of all the heavy lifting
 - **ListSearchableItem** : Defines a `ListItem` with search capability.
 - **ListSelectableItem** : Defines a `ListItem` that could be selected.
 - **BaseListFragment** : Uses `ListItem` to create list. Override `loadListItemsInBackground`, `onItemClicked` to get started.
+- - **BaseMutableListFragment** : An extension of `BaseListFragment` with support for pagination, pull-to-refresh
 - **BaseListSearchFragment** : Allows you to create a list with search capabilities. Use `ListSearchableItem` with the same.
 - **BaseListSelectionFragment** : Allows you to create a list with ability to select items. Use `ListSelectableItem` with the same.
+
+## View
+
+- **CruxTextView, CruxEditText, CruxButton** : Uses font passed in configuration by default. Override font using `font` attribute in XML or `setFont` method.  
+- **CruxImageView** : Provides API to load image from network and bundled resources. 
 
 ## Database
 
