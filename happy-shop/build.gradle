@@ -15,6 +15,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -41,6 +43,15 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile project(':crux')
+
+    androidTestCompile 'com.android.support:support-annotations:24.0.0-alpha2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:+'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:+') {
+        exclude group: 'com.android.support'
+        exclude module: 'recyclerview-v7'
+    }
 
     testCompile 'junit:junit:4.12'
 }
