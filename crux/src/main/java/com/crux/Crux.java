@@ -3,7 +3,6 @@ package com.crux;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
-import com.activeandroid.Configuration;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
@@ -13,13 +12,19 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 public class Crux {
 
     private static Context sContext;
+    private static Configuration sConfiguration;
 
     public static void initialize(Context context) {
+        initialize(context, new Configuration());
+    }
+
+    public static void initialize(Context context, Configuration configuration) {
         sContext = context;
+        sConfiguration = configuration;
 
         //initialize ActiveAndroid
-        Configuration configuration = new Configuration.Builder(context).setDatabaseName("crux").setDatabaseVersion(1).create();
-        ActiveAndroid.initialize(configuration);
+        com.activeandroid.Configuration aaConfig = new com.activeandroid.Configuration.Builder(context).setDatabaseName(configuration.getDatabaseName()).setDatabaseVersion(configuration.getDatabaseVersion()).create();
+        ActiveAndroid.initialize(aaConfig);
 
         //intialize Fresco
         Fresco.initialize(context);
@@ -27,5 +32,9 @@ public class Crux {
 
     public static Context getContext() {
         return sContext;
+    }
+
+    public static Configuration getConfiguration() {
+        return sConfiguration;
     }
 }

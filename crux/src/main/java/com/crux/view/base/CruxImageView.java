@@ -21,6 +21,12 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 /**
+ * Base class for creating ImageView. Provides API to load image from network & resources. Uses Fresco as base
+ * @see #setImage(Uri)
+ * @see #setImageURI(String)
+ * @see #setImageURI(int)
+ * @see #setImageURI(int, String)
+ *
  * @author gauravarora
  * @since 27/04/16.
  */

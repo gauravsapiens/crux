@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.util.Log;
 
 import com.crux.Crux;
+
+import java.io.InputStream;
 
 /**
  * Utils for android resources
@@ -49,6 +52,18 @@ public class ResourceUtils {
     public static int getResourceId(String resourceId, String type) {
         Context context = getApplicationContext();
         return context.getResources().getIdentifier(resourceId, type, context.getPackageName());
+    }
+
+    public static boolean doesAssetExists(String path) {
+        boolean assetExists = false;
+        try {
+            InputStream stream = getApplicationContext().getAssets().open(path);
+            stream.close();
+            assetExists = true;
+        } catch (Exception e) {
+            Log.d("ResourceUtils", "Asset Not Found");
+        }
+        return assetExists;
     }
 
     private static Context getApplicationContext() {
