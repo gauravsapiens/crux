@@ -48,6 +48,13 @@ public class BaseDao<T extends Model> implements Dao<T> {
     }
 
     @Override
+    public void deleteAll() {
+        new Delete()
+                .from(getBeanClass())
+                .execute();
+    }
+
+    @Override
     public T findById(String objectId) {
         return new Select()
                 .from(getBeanClass())

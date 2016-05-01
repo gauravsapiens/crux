@@ -18,6 +18,8 @@ public interface Dao<T> {
 
     void delete(String objectId);
 
+    void deleteAll();
+
     T findById(String objectId);
 
     Collection<T> findByIds(Collection<String> id);
