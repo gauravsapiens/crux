@@ -31,7 +31,7 @@ A bootstrap library for Android that takes care of all the heavy lifting
 - **ListSearchableItem** : Defines a `ListItem` with search capability.
 - **ListSelectableItem** : Defines a `ListItem` that could be selected.
 - **BaseListFragment** : Uses `ListItem` to create list. Override `loadListItemsInBackground`, `onItemClicked` to get started.
-- - **BaseMutableListFragment** : An extension of `BaseListFragment` with support for pagination, pull-to-refresh
+- **BaseMutableListFragment** : An extension of `BaseListFragment` with support for pagination, pull-to-refresh
 - **BaseListSearchFragment** : Allows you to create a list with search capabilities. Use `ListSearchableItem` with the same.
 - **BaseListSelectionFragment** : Allows you to create a list with ability to select items. Use `ListSelectableItem` with the same.
 
