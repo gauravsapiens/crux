@@ -1,5 +1,6 @@
 package com.crux;
 
+import com.activeandroid.serializer.TypeSerializer;
 import com.crux.util.StringUtils;
 
 /**
@@ -13,6 +14,8 @@ public class Configuration {
     private String mDatabaseName;
     private int mDatabaseVersion;
     private String mDefaultFont;
+    private Class[] mTableClasses;
+    private Class<? extends TypeSerializer>[] mTypeSerializers;
 
     public static Configuration getDefaultConfiguration() {
         Configuration configuration = new Configuration();
@@ -53,4 +56,23 @@ public class Configuration {
         this.mDefaultFont = defaultFont;
         return this;
     }
+
+    public Class[] getTableClasses() {
+        return mTableClasses;
+    }
+
+    public Configuration setTableClasses(Class... classes) {
+        this.mTableClasses = classes;
+        return this;
+    }
+
+    public Class<? extends TypeSerializer>[] getTypeSerializers() {
+        return mTypeSerializers;
+    }
+
+    public Configuration setTypeSerializers(Class<? extends TypeSerializer>... typeSerializers) {
+        this.mTypeSerializers = typeSerializers;
+        return this;
+    }
+
 }
