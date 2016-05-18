@@ -136,10 +136,13 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private View.OnClickListener getOnClickListener(ListItem itemz, int position) {
-        return v -> {
-            if (mOnItemClickListener != null) {
-                mOnItemClickListener.onRecyclableItemClicked(itemz, position);
+    private View.OnClickListener getOnClickListener(final ListItem itemz, final int position) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onRecyclableItemClicked(itemz, position);
+                }
             }
         };
     }

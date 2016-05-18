@@ -38,7 +38,7 @@ public class NavigationPresenter {
         }
 
         Class clazz = mBaseActivity.getClass();
-        Menu menu = mNavigationView.getMenu();
+        final Menu menu = mNavigationView.getMenu();
         for (DrawerMenu drawerMenu : mDrawerMenus) {
             MenuItem menuItem = menu.add(drawerMenu.getImageResourceId(), drawerMenu.getIndex(), drawerMenu.getIndex(), drawerMenu.getTitle());
             menuItem.setIcon(drawerMenu.getImageResourceId());
@@ -48,7 +48,12 @@ public class NavigationPresenter {
             }
         }
 
-        mNavigationView.setNavigationItemSelectedListener(this::onNavigationButtonSelected);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                return onNavigationButtonSelected(item);
+            }
+        });
     }
 
     private boolean onNavigationButtonSelected(MenuItem menuItem) {

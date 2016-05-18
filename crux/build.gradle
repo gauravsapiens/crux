@@ -6,11 +6,6 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
@@ -27,14 +22,10 @@ android {
 
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
-    }
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.1.0'
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
-apply plugin: 'me.tatarka.retrolambda'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
