@@ -3,7 +3,22 @@ A bootstrap library for Android that takes care of all the heavy lifting
 
 ## Setup
 
-- Call `Crux.initialize(Context)` in Application's `onCreate` or `Crux.initialize(Context, Configuration)` if you wish to override default configuration
+- Add the following to top-level build.gradle:
+
+```
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+```
+- In your app-level build.gradle, add: 
+```
+compile 'com.github.gauravsapiens:crux:v0.1'
+```
+- Extend your application class and call  `Crux.initialize(Context)` or `Crux.initialize(Context, Configuration)` on `onCreate()`
 
 ## API
 
