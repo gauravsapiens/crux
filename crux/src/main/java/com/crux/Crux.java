@@ -23,13 +23,15 @@ public class Crux {
         sConfiguration = configuration;
 
         //initialize ActiveAndroid
-        com.activeandroid.Configuration aaConfig = new com.activeandroid.Configuration.Builder(context)
-                .setDatabaseName(configuration.getDatabaseName())
-                .setDatabaseVersion(configuration.getDatabaseVersion())
-                .setModelClasses(configuration.getTableClasses())
-                .setTypeSerializers(configuration.getTypeSerializers())
-                .create();
-        ActiveAndroid.initialize(aaConfig);
+        if (configuration.isDatabaseEnabled()) {
+            com.activeandroid.Configuration aaConfig = new com.activeandroid.Configuration.Builder(context)
+                    .setDatabaseName(configuration.getDatabaseName())
+                    .setDatabaseVersion(configuration.getDatabaseVersion())
+                    .setModelClasses(configuration.getTableClasses())
+                    .setTypeSerializers(configuration.getTypeSerializers())
+                    .create();
+            ActiveAndroid.initialize(aaConfig);
+        }
 
         //intialize Fresco
         Fresco.initialize(context);

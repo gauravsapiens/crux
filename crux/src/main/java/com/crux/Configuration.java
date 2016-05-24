@@ -11,17 +11,29 @@ public class Configuration {
 
     private static Configuration sDefaultConfiguration = getDefaultConfiguration();
 
+    //Database
+    private boolean mDatabaseEnabled;
     private String mDatabaseName;
     private int mDatabaseVersion;
-    private String mDefaultFont;
     private Class[] mTableClasses;
     private Class<? extends TypeSerializer>[] mTypeSerializers;
+
+    //Others
+    private String mDefaultFont;
 
     public static Configuration getDefaultConfiguration() {
         Configuration configuration = new Configuration();
         configuration.setDatabaseName("crux");
         configuration.setDatabaseVersion(1);
         return configuration;
+    }
+
+    public boolean isDatabaseEnabled() {
+        return mDatabaseEnabled;
+    }
+
+    public void setDatabaseEnabled(boolean databaseEnabled) {
+        this.mDatabaseEnabled = databaseEnabled;
     }
 
     public String getDatabaseName() {
