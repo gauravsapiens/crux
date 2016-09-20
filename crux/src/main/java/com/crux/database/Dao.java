@@ -12,7 +12,11 @@ public interface Dao<T> {
 
     T create(T object);
 
+    Collection<T> create(Collection<T> objects);
+
     T update(T object);
+
+    Collection<T> update(Collection<T> objects);
 
     T createOrUpdate(T object);
 

@@ -1,8 +1,10 @@
 package com.crux.database;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.crux.util.CollectionUtils;
 import com.crux.util.StringUtils;
 
 import java.util.Collection;
@@ -23,14 +25,36 @@ public class BaseDao<T extends Model> implements Dao<T> {
 
     @Override
     public T create(T object) {
-        object.save();
-        return object;
+        return update(object);
+    }
+
+    @Override
+    public Collection<T> create(Collection<T> objects) {
+        return update(objects);
     }
 
     @Override
     public T update(T object) {
         object.save();
         return object;
+    }
+
+    @Override
+    public Collection<T> update(Collection<T> objects) {
+        if (CollectionUtils.isEmpty(objects)) {
+            return null;
+        }
+
+        ActiveAndroid.beginTransaction();
+        try {
+            for (T object : objects) {
+                object.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+        return objects;
     }
 
     @Override
