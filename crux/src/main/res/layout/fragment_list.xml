@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ViewStub
+        android:id="@+id/static_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top" />
+
     <include
         android:id="@+id/progress_container"
         layout="@layout/view_loading"
@@ -15,9 +21,9 @@
 
         <ViewStub
             android:id="@+id/empty_view_stub"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -25,5 +31,11 @@
             android:layout_height="match_parent" />
 
     </FrameLayout>
+
+    <ViewStub
+        android:id="@+id/static_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
 </FrameLayout>

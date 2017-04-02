@@ -42,6 +42,9 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     private View mEmptyView;
     protected boolean mListShown;
 
+    protected ViewStub mStaticHeader;
+    protected ViewStub mStaticFooter;
+
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ListAdapter mAdapter;
@@ -64,6 +67,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
         TextView emptyTextView = (TextView) mRootView.findViewById(R.id.empty_text);
         emptyTextView.setText(getEmptyText());
+
+        //static header & footer
+        mStaticHeader = (ViewStub) mRootView.findViewById(R.id.static_header);
+        mStaticFooter = (ViewStub) mRootView.findViewById(R.id.static_footer);
 
         return mRootView;
     }
@@ -217,6 +224,16 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         int lastIndex = mAdapter.getItemCount() - 1;
         mAdapter.removeItem(lastIndex);
         mAdapter.notifyDataSetChanged();
+    }
+
+    protected void addStaticHeader(int layoutId) {
+        mStaticHeader.setLayoutResource(layoutId);
+        mStaticHeader.inflate();
+    }
+
+    protected void addStaticFooter(int layoutId) {
+        mStaticFooter.setLayoutResource(layoutId);
+        mStaticFooter.inflate();
     }
 
     protected void customizeView() {
