@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ViewStub
+    <FrameLayout
         android:id="@+id/static_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top" />
+        android:layout_alignParentTop="true" />
 
     <include
         android:id="@+id/progress_container"
@@ -17,7 +17,9 @@
     <FrameLayout
         android:id="@+id/list_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/static_footer"
+        android:layout_below="@+id/static_header">
 
         <ViewStub
             android:id="@+id/empty_view_stub"
@@ -32,10 +34,10 @@
 
     </FrameLayout>
 
-    <ViewStub
+    <FrameLayout
         android:id="@+id/static_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        android:layout_alignParentBottom="true" />
 
-</FrameLayout>
+</RelativeLayout>

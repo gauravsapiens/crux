@@ -1,6 +1,7 @@
 package com.crux.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.crux.ItemListLoader;
@@ -42,8 +44,8 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     private View mEmptyView;
     protected boolean mListShown;
 
-    protected ViewStub mStaticHeader;
-    protected ViewStub mStaticFooter;
+    protected FrameLayout mStaticHeader;
+    protected FrameLayout mStaticFooter;
 
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
@@ -69,8 +71,8 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         emptyTextView.setText(getEmptyText());
 
         //static header & footer
-        mStaticHeader = (ViewStub) mRootView.findViewById(R.id.static_header);
-        mStaticFooter = (ViewStub) mRootView.findViewById(R.id.static_footer);
+        mStaticHeader = (FrameLayout) mRootView.findViewById(R.id.static_header);
+        mStaticFooter = (FrameLayout) mRootView.findViewById(R.id.static_footer);
 
         return mRootView;
     }
@@ -226,14 +228,20 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         mAdapter.notifyDataSetChanged();
     }
 
-    protected void addStaticHeader(int layoutId) {
-        mStaticHeader.setLayoutResource(layoutId);
-        mStaticHeader.inflate();
+    protected void addStaticHeader(@LayoutRes int layoutId) {
+        View view = LayoutInflater.from(getContext()).inflate(layoutId, mRootView, true);
+        mStaticHeader.addView(view);
+    }
+    protected void addStaticHeader(View headerView) {
+        mStaticHeader.addView(headerView);
     }
 
-    protected void addStaticFooter(int layoutId) {
-        mStaticFooter.setLayoutResource(layoutId);
-        mStaticFooter.inflate();
+    protected void addStaticFooter(@LayoutRes int layoutId) {
+        View view = LayoutInflater.from(getContext()).inflate(layoutId, mRootView, true);
+        mStaticFooter.addView(view);
+    }
+    protected void addStaticFooter(View footerView) {
+        mStaticFooter.addView(footerView);
     }
 
     protected void customizeView() {
