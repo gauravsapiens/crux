@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ViewStub
         android:id="@+id/static_header"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top" />
@@ -19,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ViewStub
+        <FrameLayout
             android:id="@+id/empty_view_stub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,13 +30,13 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </FrameLayout>
 
-    <ViewStub
+    <FrameLayout
         android:id="@+id/static_footer"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />
 
-</FrameLayout>
+</RelativeLayout>
