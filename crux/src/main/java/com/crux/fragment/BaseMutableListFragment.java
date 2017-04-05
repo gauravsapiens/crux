@@ -2,6 +2,8 @@ package com.crux.fragment;
 
 import android.os.Bundle;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -22,7 +24,8 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
     public enum Mode {
         FIRST_TIME,
         PAGINATED,
-        PULL_TO_REFRESH
+        PULL_TO_REFRESH,
+        NONE,
     }
 
     private Mode mMode = Mode.FIRST_TIME;
@@ -32,12 +35,31 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
         @Override
         public void onScrolledToBottom() {
+            if (shouldLoadPageOnBottomScroll()) {
+                return;
+            }
+            if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
+                return;
+            }
+            loadNextPage();
+        }
+
+        @Override
+        public void onScrolledToTop() {
+            if (!shouldLoadPageOnBottomScroll()) {
+                return;
+            }
             if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
                 return;
             }
             loadNextPage();
         }
     };
+
+    private boolean shouldLoadPageOnBottomScroll() {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        return !(layoutManager instanceof LinearLayoutManager) || !((LinearLayoutManager) layoutManager).getReverseLayout();
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -74,6 +96,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
             }
             break;
         }
+        mMode = Mode.NONE;
 
         onLoadFinished();
     }
