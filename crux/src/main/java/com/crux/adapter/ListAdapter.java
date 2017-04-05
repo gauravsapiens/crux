@@ -105,6 +105,10 @@ public class ListAdapter extends RecyclerView.Adapter {
         initializeItemsWithType();
     }
 
+    public List<ListItem> getItems() {
+        return mItems;
+    }
+
     public void setOnItemClickListener(OnItemClickListener onRecyclableItemListener) {
         mOnItemClickListener = onRecyclableItemListener;
     }
