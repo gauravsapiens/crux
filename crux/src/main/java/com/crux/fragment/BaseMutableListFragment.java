@@ -114,7 +114,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
         return false;
     }
 
-    private View getLoadingFooterView() {
+    protected View getLoadingFooterView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         return inflater.inflate(R.layout.view_loading_footer, mRecyclerView, false);
     }
