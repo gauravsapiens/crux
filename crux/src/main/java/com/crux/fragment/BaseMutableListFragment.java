@@ -28,9 +28,9 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
         NONE,
     }
 
-    private Mode mMode = Mode.FIRST_TIME;
+    protected Mode mMode = Mode.FIRST_TIME;
     private int mPageNumber = 1;
-    private boolean mAllItemsLoaded;
+    protected boolean mAllItemsLoaded;
 
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
         @Override
