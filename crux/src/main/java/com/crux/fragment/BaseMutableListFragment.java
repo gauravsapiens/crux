@@ -29,7 +29,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
     }
 
     protected Mode mMode = Mode.FIRST_TIME;
-    private int mPageNumber = 1;
+    protected int mPageNumber = 1;
     protected boolean mAllItemsLoaded;
 
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
