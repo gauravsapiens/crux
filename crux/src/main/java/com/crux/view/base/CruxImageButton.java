@@ -1,14 +1,14 @@
 package com.crux.view.base;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
-import android.widget.ImageButton;
 
 /**
  * @author gauravarora
  * @since 27/04/16.
  */
-public class CruxImageButton extends ImageButton {
+public class CruxImageButton extends AppCompatImageButton {
 
     public CruxImageButton(Context context) {
         super(context);
