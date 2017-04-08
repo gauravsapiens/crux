@@ -81,7 +81,8 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
 
         switch (mMode) {
             case FIRST_TIME:
-            case PULL_TO_REFRESH: {
+            case PULL_TO_REFRESH:
+            case NONE: {
                 mAdapter.setRecyclableItems(listItems);
                 mAdapter.notifyDataSetChanged();
             }
