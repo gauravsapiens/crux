@@ -10,9 +10,15 @@
         <item name="titleTextStyle">@style/ToolbarTitleText</item>
     </style>
 
-    <style name="ToolbarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="ToolbarTitleText" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="Theme"/>
+
+    <style name="Theme.Toolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
     <style name="Toolbar.Dark" parent="Theme.AppCompat.NoActionBar">
