@@ -36,7 +36,7 @@ public class DrawerActivity extends BaseActivity {
     @Override
     protected int getParentLayout() {
         if (isNavDrawerEnabled()) {
-            return R.layout.activity_drawer;
+            return R.layout.c_activity_drawer;
         } else {
             return super.getParentLayout();
         }

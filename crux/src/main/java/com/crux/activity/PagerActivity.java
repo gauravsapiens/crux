@@ -29,7 +29,7 @@ public abstract class PagerActivity extends DrawerActivity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addContentView(R.layout.activity_pager);
+        addContentView(R.layout.c_activity_pager);
 
         setupViewPager();
         customizeActivity();
@@ -40,7 +40,7 @@ public abstract class PagerActivity extends DrawerActivity {
 
     @Override
     protected int getAppBarLayout() {
-        return R.layout.app_bar_tabbed;
+        return R.layout.c_app_bar_tabbed;
     }
 
     private void setupViewPager() {

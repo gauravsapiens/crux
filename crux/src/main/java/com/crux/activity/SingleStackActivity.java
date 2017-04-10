@@ -20,7 +20,7 @@ public abstract class SingleStackActivity extends DrawerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addContentView(R.layout.activity_single_stack);
+        addContentView(R.layout.c_activity_single_stack);
 
         if (savedInstanceState == null) {
             fragment = onCreatePane();

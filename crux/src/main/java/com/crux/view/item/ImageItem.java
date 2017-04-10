@@ -31,7 +31,7 @@ public class ImageItem implements ListItem {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View rootView = inflater.inflate(R.layout.item_simple_image, parent, false);
+        View rootView = inflater.inflate(R.layout.c_item_simple_image, parent, false);
         return new ViewHolder(rootView);
     }
 

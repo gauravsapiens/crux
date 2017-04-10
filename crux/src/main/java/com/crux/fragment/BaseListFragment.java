@@ -57,7 +57,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mIsFetchingData = savedInstanceState != null && savedInstanceState.getBoolean(RetainDataKeyIsFetchingData, false);
 
-        mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_list, container, false);
+        mRootView = (ViewGroup) inflater.inflate(R.layout.c_fragment_list, container, false);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view);
         mListContainer = mRootView.findViewById(R.id.list_container);
         mProgressContainer = mRootView.findViewById(R.id.progress_container);
@@ -255,7 +255,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     }
 
     protected int getEmptyLayoutId() {
-        return R.layout.view_empty_list;
+        return R.layout.c_view_empty_list;
     }
 
     protected String getEmptyText() {

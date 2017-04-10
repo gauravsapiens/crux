@@ -50,11 +50,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected int getAppBarLayout() {
-        return R.layout.app_bar;
+        return R.layout.c_app_bar;
     }
 
     protected int getParentLayout() {
-        return R.layout.activity_base;
+        return R.layout.c_activity_base;
     }
 
     protected boolean isToolbarEnabled() {

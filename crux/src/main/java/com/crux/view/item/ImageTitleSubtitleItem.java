@@ -38,7 +38,7 @@ public class ImageTitleSubtitleItem implements ListItem {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View rootView = inflater.inflate(R.layout.item_image_title_subtitle, parent, false);
+        View rootView = inflater.inflate(R.layout.c_item_image_title_subtitle, parent, false);
         return new ViewHolder(rootView);
     }
 
