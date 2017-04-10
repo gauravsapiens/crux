@@ -188,8 +188,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
                 mProgressContainer.clearAnimation();
                 mListContainer.clearAnimation();
             }
-            mProgressContainer.setVisibility(View.GONE);
-            mListContainer.setVisibility(View.VISIBLE);
+            hideLoader();
         } else {
             if (animate) {
                 mProgressContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),
@@ -200,9 +199,19 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
                 mProgressContainer.clearAnimation();
                 mListContainer.clearAnimation();
             }
-            mProgressContainer.setVisibility(View.VISIBLE);
-            mListContainer.setVisibility(View.GONE);
+            showLoader();
         }
+    }
+
+    protected void showLoader() {
+        mProgressContainer.setVisibility(View.VISIBLE);
+        mListContainer.setVisibility(View.GONE);
+    }
+
+
+    protected void hideLoader() {
+        mProgressContainer.setVisibility(View.GONE);
+        mListContainer.setVisibility(View.VISIBLE);
     }
 
     protected void addHeader(View view) {
