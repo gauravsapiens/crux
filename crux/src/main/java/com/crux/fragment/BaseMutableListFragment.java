@@ -76,9 +76,6 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
 
     @Override
     public void onLoadFinished(Loader<List<ListItem>> listLoader, List<ListItem> listItems) {
-        setListShown(true);
-        mIsFetchingData = false;
-
         switch (mMode) {
             case FIRST_TIME:
             case PULL_TO_REFRESH:

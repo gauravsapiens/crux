@@ -142,8 +142,6 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     @Override
     public void onLoadFinished(Loader<List<ListItem>> listLoader, List<ListItem> listItems) {
-        mIsFetchingData = false;
-
         mAdapter.setRecyclableItems(listItems);
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
