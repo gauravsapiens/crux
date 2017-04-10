@@ -3,6 +3,7 @@ package com.crux.view.base;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import com.crux.util.ResourceUtils;
  * @author gauravarora
  * @since 27/04/16.
  */
-public class CruxTextView extends TextView {
+public class CruxTextView extends AppCompatTextView {
 
     public CruxTextView(Context context) {
         super(context);
@@ -35,7 +36,7 @@ public class CruxTextView extends TextView {
     }
 
     protected void setFont(String fontFileName) {
-        String fontPath = "fonts/" + fontFileName;
+        String fontPath = ResourceUtils.getFontFileAbsolutePath(fontFileName);
         if (ResourceUtils.doesAssetExists(fontPath)) {
             Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), fontPath);
             setTypeface(myTypeface);

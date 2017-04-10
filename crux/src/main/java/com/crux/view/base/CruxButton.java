@@ -3,8 +3,8 @@ package com.crux.view.base;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import com.crux.Crux;
 import com.crux.R;
@@ -17,7 +17,7 @@ import com.crux.util.ResourceUtils;
  * @author gauravarora
  * @since 27/04/16.
  */
-public class CruxButton extends Button {
+public class CruxButton extends AppCompatButton {
 
     public CruxButton(Context context) {
         super(context);
@@ -35,7 +35,7 @@ public class CruxButton extends Button {
     }
 
     protected void setFont(String fontFileName) {
-        String fontPath = "fonts/" + fontFileName;
+        String fontPath = ResourceUtils.getFontFileAbsolutePath(fontFileName);
         if (ResourceUtils.doesAssetExists(fontPath)) {
             Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), fontPath);
             setTypeface(myTypeface);

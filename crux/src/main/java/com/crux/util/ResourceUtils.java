@@ -66,6 +66,11 @@ public class ResourceUtils {
         return assetExists;
     }
 
+    public static String getFontFileAbsolutePath(String fontFileName){
+        String fontPath = "fonts/" + fontFileName + ".ttf";
+        return fontPath;
+    }
+
     private static Context getApplicationContext() {
         return Crux.getContext();
     }

@@ -2,6 +2,8 @@ package com.crux.fragment;
 
 import android.os.Bundle;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -22,22 +24,42 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
     public enum Mode {
         FIRST_TIME,
         PAGINATED,
-        PULL_TO_REFRESH
+        PULL_TO_REFRESH,
+        NONE,
     }
 
-    private Mode mMode = Mode.FIRST_TIME;
-    private int mPageNumber = 1;
-    private boolean mAllItemsLoaded;
+    protected Mode mMode = Mode.FIRST_TIME;
+    protected int mPageNumber = 1;
+    protected boolean mAllItemsLoaded;
 
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
         @Override
         public void onScrolledToBottom() {
+            if (shouldLoadPageOnBottomScroll()) {
+                return;
+            }
+            if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
+                return;
+            }
+            loadNextPage();
+        }
+
+        @Override
+        public void onScrolledToTop() {
+            if (!shouldLoadPageOnBottomScroll()) {
+                return;
+            }
             if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
                 return;
             }
             loadNextPage();
         }
     };
+
+    private boolean shouldLoadPageOnBottomScroll() {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        return !(layoutManager instanceof LinearLayoutManager) || !((LinearLayoutManager) layoutManager).getReverseLayout();
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -59,7 +81,8 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
 
         switch (mMode) {
             case FIRST_TIME:
-            case PULL_TO_REFRESH: {
+            case PULL_TO_REFRESH:
+            case NONE: {
                 mAdapter.setRecyclableItems(listItems);
                 mAdapter.notifyDataSetChanged();
             }
@@ -74,6 +97,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
             }
             break;
         }
+        mMode = Mode.NONE;
 
         onLoadFinished();
     }
@@ -91,7 +115,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
         return false;
     }
 
-    private View getLoadingFooterView() {
+    protected View getLoadingFooterView() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         return inflater.inflate(R.layout.view_loading_footer, mRecyclerView, false);
     }

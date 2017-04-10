@@ -3,8 +3,8 @@ package com.crux.view.base;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
 import com.crux.Crux;
 import com.crux.R;
@@ -17,7 +17,7 @@ import com.crux.util.ResourceUtils;
  * @author gauravarora
  * @since 27/04/16.
  */
-public class CruxEditText extends EditText {
+public class CruxEditText extends AppCompatEditText {
 
     public CruxEditText(Context context) {
         super(context);
@@ -35,7 +35,7 @@ public class CruxEditText extends EditText {
     }
 
     protected void setFont(String fontFileName) {
-        String fontPath = "fonts/" + fontFileName;
+        String fontPath = ResourceUtils.getFontFileAbsolutePath(fontFileName);
         if (ResourceUtils.doesAssetExists(fontPath)) {
             Typeface myTypeface = Typeface.createFromAsset(getContext().getAssets(), fontPath);
             setTypeface(myTypeface);
