@@ -91,6 +91,9 @@ public class ListAdapter extends RecyclerView.Adapter {
     }
 
     public void addItem(ListItem item, int position) {
+        if (CollectionUtils.isEmpty(mItems)) {
+            return;
+        }
         mItems.add(position, item);
         initializeItemsWithType();
     }
