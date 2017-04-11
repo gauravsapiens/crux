@@ -40,7 +40,6 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     protected ViewGroup mRootView;
     private View mListContainer;
     private View mProgressContainer;
-    private ViewStub mEmptyViewStub;
     private View mEmptyView;
     protected boolean mListShown;
 
@@ -58,14 +57,18 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         mIsFetchingData = savedInstanceState != null && savedInstanceState.getBoolean(RetainDataKeyIsFetchingData, false);
 
         mRootView = (ViewGroup) inflater.inflate(R.layout.c_fragment_list, container, false);
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view);
         mListContainer = mRootView.findViewById(R.id.list_container);
         mProgressContainer = mRootView.findViewById(R.id.progress_container);
 
+        //Recycler view
+        ViewStub recyclerViewStub = (ViewStub) mRootView.findViewById(R.id.recycler_view_stub);
+        recyclerViewStub.setLayoutResource(getRecyclerLayout());
+        mRecyclerView = (RecyclerView) recyclerViewStub.inflate();
+
         //empty layout
-        mEmptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
-        mEmptyViewStub.setLayoutResource(getEmptyLayoutId());
-        mEmptyView = mEmptyViewStub.inflate();
+        ViewStub emptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
+        emptyViewStub.setLayoutResource(getEmptyLayoutId());
+        mEmptyView = emptyViewStub.inflate();
 
         TextView emptyTextView = (TextView) mRootView.findViewById(R.id.empty_text);
         emptyTextView.setText(getEmptyText());
@@ -121,6 +124,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     private void initializeLoader() {
         getLoaderManager().initLoader(ITEM_LIST_LOADER_ID, null, this);
+    }
+
+    protected int getRecyclerLayout() {
+        return R.layout.c_view_recycler;
     }
 
     protected RecyclerView.Adapter decorateAdapter(ListAdapter adapter) {
