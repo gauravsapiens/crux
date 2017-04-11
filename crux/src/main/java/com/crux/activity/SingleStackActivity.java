@@ -52,12 +52,20 @@ public abstract class SingleStackActivity extends DrawerActivity {
     }
 
     protected boolean popFromStack() {
-        boolean isDone = getSupportFragmentManager().popBackStackImmediate();
-        if (!mFragmentStack.isEmpty()) {
-            mFragmentStack.pop();
+        if (mFragmentStack.empty()) {
+            return false;
+        }
+
+        //Pop fragment & state
+        getSupportFragmentManager().popBackStackImmediate();
+        mFragmentStack.pop();
+
+        //Update current fragment if available
+        if (!mFragmentStack.empty()) {
             mFragment = getSupportFragmentManager().findFragmentByTag(mFragmentStack.peek());
         }
-        return isDone;
+
+        return true;
     }
 
     @Override
