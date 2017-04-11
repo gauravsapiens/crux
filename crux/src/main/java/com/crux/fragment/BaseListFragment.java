@@ -229,14 +229,18 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
             return;
         }
         mHeaderItem = new ContainerItem(view);
-        mAdapter.addItem(mHeaderItem, 0);
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter != null) {
+            mAdapter.addItem(mHeaderItem, 0);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     protected void removeHeader() {
         mHeaderItem = null;
-        mAdapter.removeItem(0);
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter != null) {
+            mAdapter.removeItem(0);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     protected void addFooter(View view) {
@@ -244,17 +248,21 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
             return;
         }
         mFooterItem = new ContainerItem(view);
-        int lastIndex = mAdapter.getItemCount();
-        mAdapter.addItem(mFooterItem, lastIndex);
-        mAdapter.notifyDataSetChanged();
-        mRecyclerView.scrollToPosition(lastIndex);
+        if (mAdapter != null) {
+            int lastIndex = mAdapter.getItemCount();
+            mAdapter.addItem(mFooterItem, lastIndex);
+            mAdapter.notifyDataSetChanged();
+            mRecyclerView.scrollToPosition(lastIndex);
+        }
     }
 
     protected void removeFooter() {
         mFooterItem = null;
-        int lastIndex = mAdapter.getItemCount() - 1;
-        mAdapter.removeItem(lastIndex);
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter != null) {
+            int lastIndex = mAdapter.getItemCount() - 1;
+            mAdapter.removeItem(lastIndex);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     protected void addStaticHeader(@LayoutRes int layoutId) {
