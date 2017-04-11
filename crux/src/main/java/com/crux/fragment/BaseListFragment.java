@@ -51,6 +51,9 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ListAdapter mAdapter;
 
+    protected ListItem mHeaderItem;
+    protected ListItem mFooterItem;
+
     protected boolean mIsFetchingData;
 
     @Override
@@ -142,6 +145,15 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     @Override
     public void onLoadFinished(Loader<List<ListItem>> listLoader, List<ListItem> listItems) {
+        if (mHeaderItem != null) {
+            listItems.add(0, mHeaderItem);
+        }
+
+        if (mFooterItem != null) {
+            int lastIndex = mAdapter.getItemCount();
+            listItems.add(lastIndex, mFooterItem);
+        }
+
         mAdapter.setRecyclableItems(listItems);
         mRecyclerView.getAdapter().notifyDataSetChanged();
 
@@ -213,23 +225,33 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     }
 
     protected void addHeader(View view) {
-        mAdapter.addItem(new ContainerItem(view), 0);
+        if (view == null) {
+            return;
+        }
+        mHeaderItem = new ContainerItem(view);
+        mAdapter.addItem(mHeaderItem, 0);
         mAdapter.notifyDataSetChanged();
     }
 
     protected void removeHeader() {
+        mHeaderItem = null;
         mAdapter.removeItem(0);
         mAdapter.notifyDataSetChanged();
     }
 
     protected void addFooter(View view) {
+        if (view == null) {
+            return;
+        }
+        mFooterItem = new ContainerItem(view);
         int lastIndex = mAdapter.getItemCount();
-        mAdapter.addItem(new ContainerItem(view), lastIndex);
+        mAdapter.addItem(mFooterItem, lastIndex);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.scrollToPosition(lastIndex);
     }
 
     protected void removeFooter() {
+        mFooterItem = null;
         int lastIndex = mAdapter.getItemCount() - 1;
         mAdapter.removeItem(lastIndex);
         mAdapter.notifyDataSetChanged();
@@ -239,6 +261,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         View view = LayoutInflater.from(getContext()).inflate(layoutId, mRootView, true);
         mStaticHeader.addView(view);
     }
+
     protected void addStaticHeader(View headerView) {
         mStaticHeader.addView(headerView);
     }
@@ -247,6 +270,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         View view = LayoutInflater.from(getContext()).inflate(layoutId, mRootView, true);
         mStaticFooter.addView(view);
     }
+
     protected void addStaticFooter(View footerView) {
         mStaticFooter.addView(footerView);
     }
