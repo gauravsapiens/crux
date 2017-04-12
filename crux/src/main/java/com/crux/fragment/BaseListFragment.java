@@ -19,8 +19,10 @@ import com.crux.ListItem;
 import com.crux.OnItemClickListener;
 import com.crux.R;
 import com.crux.adapter.ListAdapter;
+import com.crux.util.CollectionUtils;
 import com.crux.view.item.ContainerItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -205,6 +207,19 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
                 mListContainer.clearAnimation();
             }
             showLoader();
+        }
+    }
+
+    protected void addItem(ListItem item) {
+        if (CollectionUtils.isEmpty(mAdapter.getItems())) {
+            List<ListItem> items = new ArrayList<>();
+            items.add(item);
+            mAdapter.setRecyclableItems(items);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.addItem(item, 0);
+            mAdapter.notifyItemInserted(0);
+            mRecyclerView.smoothScrollToPosition(0);
         }
     }
 
