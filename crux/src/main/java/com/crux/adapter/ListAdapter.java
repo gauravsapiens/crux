@@ -2,10 +2,12 @@ package com.crux.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 
+import com.crux.DefinedListItem;
 import com.crux.ListItem;
 import com.crux.ListSearchableItem;
 import com.crux.OnItemClickListener;
@@ -28,11 +30,15 @@ public class ListAdapter extends RecyclerView.Adapter {
     private OnItemClickListener mOnItemClickListener;
     private List<ListItem> mOriginalItems;
     private List<ListItem> mItems;
-    private Map<Class, Integer> itemClassVsType;
-    private Map<Integer, ListItem> typeVsItem;
-    private Map<Integer, Class> positionVsClassType;
     private Context mContext;
     private Filter mFilter;
+
+
+    //Item types
+    private Map<Class, Integer> mClassVsViewTypeLookup;
+    private SparseArray<ListItem> mViewTypeVsViewItemLookup;
+
+    private int mCurrentViewTypeCount = 1;
 
     public ListAdapter(Context context) {
         mContext = context;
@@ -40,7 +46,7 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        ListItem item = typeVsItem.get(viewType);
+        ListItem item = mViewTypeVsViewItemLookup.get(viewType);
         return item.onCreateViewHolder(viewGroup);
     }
 
@@ -56,8 +62,11 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        Class clazz = positionVsClassType.get(position);
-        return itemClassVsType.get(clazz);
+        ListItem item = mItems.get(position);
+        if (item instanceof DefinedListItem) {
+            return ((DefinedListItem) item).getItemType();
+        }
+        return mClassVsViewTypeLookup.get(item.getClass());
     }
 
     @Override
@@ -71,10 +80,6 @@ public class ListAdapter extends RecyclerView.Adapter {
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    public Class getItemClass(int position) {
-        return positionVsClassType.get(position);
     }
 
     public ListItem getItem(int position) {
@@ -124,22 +129,16 @@ public class ListAdapter extends RecyclerView.Adapter {
     }
 
     private void initializeItemsWithType() {
-        itemClassVsType = new HashMap<>();
-        typeVsItem = new HashMap<>();
-        positionVsClassType = new HashMap<>();
+        mClassVsViewTypeLookup = new HashMap<>();
+        mViewTypeVsViewItemLookup = new SparseArray<>();
 
-        if (CollectionUtils.isEmpty(mItems)) {
-            return;
-        }
-
-        int itemIndex = 0;
-        int typeIndex = 1;
-        for (ListItem item : mItems) {
-            if (!itemClassVsType.containsKey(item.getClass())) {
-                itemClassVsType.put(item.getClass(), typeIndex);
-                typeVsItem.put(typeIndex++, item);
+        for (ListItem recyclableViewItem : mItems) {
+            Class classs = recyclableViewItem.getClass();
+            if (!mClassVsViewTypeLookup.containsKey(classs)) {
+                mClassVsViewTypeLookup.put(classs, mCurrentViewTypeCount);
+                mViewTypeVsViewItemLookup.put(mCurrentViewTypeCount, recyclableViewItem);
+                mCurrentViewTypeCount++;
             }
-            positionVsClassType.put(itemIndex++, item.getClass());
         }
     }
 
