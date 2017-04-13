@@ -43,6 +43,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     private View mListContainer;
     private View mProgressContainer;
     private View mEmptyView;
+    private TextView emptyTextView;
     protected boolean mListShown;
 
     protected FrameLayout mStaticHeader;
@@ -72,7 +73,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         emptyViewStub.setLayoutResource(getEmptyLayoutId());
         mEmptyView = emptyViewStub.inflate();
 
-        TextView emptyTextView = (TextView) mRootView.findViewById(R.id.empty_text);
+        emptyTextView = (TextView) mRootView.findViewById(R.id.empty_text);
         emptyTextView.setText(getEmptyText());
 
         //static header & footer
@@ -282,6 +283,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     protected String getEmptyText() {
         return "No Results";
+    }
+
+    protected void setEmptyText(String text) {
+        emptyTextView.setText(text);
     }
 
     protected void showEmptyView() {
