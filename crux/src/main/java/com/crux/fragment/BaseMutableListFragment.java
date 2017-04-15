@@ -32,13 +32,15 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
     protected int mPageNumber = 1;
     protected boolean mAllItemsLoaded;
 
+    protected boolean mIsLoadingNextPage;
+
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
         @Override
         public void onScrolledToBottom() {
             if (shouldLoadPageOnBottomScroll()) {
                 return;
             }
-            if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
+            if (!isPaginationEnabled() || mIsLoadingNextPage || mAllItemsLoaded) {
                 return;
             }
             loadNextPage();
@@ -49,7 +51,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
             if (!shouldLoadPageOnBottomScroll()) {
                 return;
             }
-            if (!isPaginationEnabled() || mIsFetchingData || mAllItemsLoaded) {
+            if (!isPaginationEnabled() || mIsLoadingNextPage || mAllItemsLoaded) {
                 return;
             }
             loadNextPage();
@@ -102,7 +104,7 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
     protected void loadNextPage() {
         mMode = Mode.PAGINATED;
         mPageNumber = mPageNumber + 1;
-        mIsFetchingData = true;
+        mIsLoadingNextPage = true;
 
         addFooter(getLoadingFooterView());
         getItemListLoader().forceLoad();

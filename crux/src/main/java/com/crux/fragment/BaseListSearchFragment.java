@@ -41,7 +41,7 @@ public abstract class BaseListSearchFragment extends BaseMutableListFragment imp
 
         mSearchView.setOnQueryTextListener(this);
 
-        if (!TextUtils.isEmpty(mSearchText) && !mListShown) {
+        if (!TextUtils.isEmpty(mSearchText) && mViewMode == ViewMode.LOADING) {
             mSearchView.setIconified(false);
             MenuItemCompat.expandActionView(mSearchMenuItem);
             mSearchView.setFocusable(true);
@@ -54,7 +54,7 @@ public abstract class BaseListSearchFragment extends BaseMutableListFragment imp
                 new MenuItemCompat.OnActionExpandListener() {
                     @Override
                     public boolean onMenuItemActionExpand(MenuItem item) {
-                        return mListShown;
+                        return mViewMode == ViewMode.LOADING;
                     }
 
                     @Override

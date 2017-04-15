@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.crux.ItemListLoader;
@@ -20,6 +20,9 @@ import com.crux.OnItemClickListener;
 import com.crux.R;
 import com.crux.adapter.ListAdapter;
 import com.crux.util.CollectionUtils;
+import com.crux.view.base.CruxButton;
+import com.crux.view.base.CruxImageView;
+import com.crux.view.base.CruxTextView;
 import com.crux.view.item.ContainerItem;
 
 import java.util.ArrayList;
@@ -36,49 +39,70 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     public static final int ORIENTATION_HORIZONTAL = LinearLayoutManager.HORIZONTAL;
     public static final int ORIENTATION_VERTICAL = LinearLayoutManager.VERTICAL;
 
-    private static final String RetainDataKeyIsFetchingData = "isFetchingData";
     private static final int ITEM_LIST_LOADER_ID = 10;
 
     protected ViewGroup mRootView;
-    private View mListContainer;
-    private View mProgressContainer;
-    private View mEmptyView;
-    private TextView emptyTextView;
-    protected boolean mListShown;
 
+    //Static views
     protected FrameLayout mStaticHeader;
     protected FrameLayout mStaticFooter;
 
+    //Progress view
+    private View mProgressContainer;
+    private ProgressBar mProgressBar;
+    private CruxTextView mProgressMessage;
+
+    //empty views
+    private View mEmptyContainer;
+    private CruxImageView mEmptyImageView;
+    private TextView mEmptyTextView;
+    private CruxButton mRetryButton;
+
+    //Recycler view
     protected RecyclerView mRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ListAdapter mAdapter;
 
-    protected boolean mIsFetchingData;
+    protected ViewMode mViewMode;
+
+    public enum ViewMode {
+        NORMAL, LOADING, EMPTY
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mIsFetchingData = savedInstanceState != null && savedInstanceState.getBoolean(RetainDataKeyIsFetchingData, false);
-
         mRootView = (ViewGroup) inflater.inflate(R.layout.c_fragment_list, container, false);
-        mListContainer = mRootView.findViewById(R.id.list_container);
-        mProgressContainer = mRootView.findViewById(R.id.progress_container);
+
+        //static header & footer
+        mStaticHeader = (FrameLayout) mRootView.findViewById(R.id.static_header);
+        mStaticFooter = (FrameLayout) mRootView.findViewById(R.id.static_footer);
+
+        //Progress layout
+        ViewStub progressViewStub = (ViewStub) mRootView.findViewById(R.id.progress_view_stub);
+        progressViewStub.setLayoutResource(getProgressLayoutId());
+        mProgressContainer = progressViewStub.inflate();
+        mProgressBar = (ProgressBar) mProgressContainer.findViewById(R.id.progress_bar);
+        mProgressMessage = (CruxTextView) mProgressContainer.findViewById(R.id.progress_message);
+
+        //empty layout
+        ViewStub emptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
+        emptyViewStub.setLayoutResource(getEmptyLayoutId());
+        mEmptyContainer = emptyViewStub.inflate();
+        mEmptyImageView = (CruxImageView) mEmptyContainer.findViewById(R.id.empty_image);
+        mEmptyTextView = (TextView) mEmptyContainer.findViewById(R.id.empty_text);
+        mEmptyTextView.setText(getEmptyText());
+        mRetryButton = (CruxButton) mEmptyContainer.findViewById(R.id.retry_button);
+        mRetryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRetryButtonClicked();
+            }
+        });
 
         //Recycler view
         ViewStub recyclerViewStub = (ViewStub) mRootView.findViewById(R.id.recycler_view_stub);
         recyclerViewStub.setLayoutResource(getRecyclerLayout());
         mRecyclerView = (RecyclerView) recyclerViewStub.inflate();
-
-        //empty layout
-        ViewStub emptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
-        emptyViewStub.setLayoutResource(getEmptyLayoutId());
-        mEmptyView = emptyViewStub.inflate();
-
-        emptyTextView = (TextView) mRootView.findViewById(R.id.empty_text);
-        emptyTextView.setText(getEmptyText());
-
-        //static header & footer
-        mStaticHeader = (FrameLayout) mRootView.findViewById(R.id.static_header);
-        mStaticFooter = (FrameLayout) mRootView.findViewById(R.id.static_footer);
 
         return mRootView;
     }
@@ -88,7 +112,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         mLayoutManager = getLayoutManager();
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        setListShown(false);
+        setViewMode(ViewMode.LOADING);
         customizeView();
     }
 
@@ -116,9 +140,9 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
             public void onChanged() {
                 super.onChanged();
                 if (mAdapter.getItemCount() == 0) {
-                    showEmptyView();
+                    setViewMode(ViewMode.EMPTY);
                 } else {
-                    hideEmptyView();
+                    setViewMode(ViewMode.NORMAL);
                 }
             }
         });
@@ -135,12 +159,6 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     protected RecyclerView.Adapter decorateAdapter(ListAdapter adapter) {
         return adapter;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(RetainDataKeyIsFetchingData, mIsFetchingData);
     }
 
     @Override
@@ -180,35 +198,16 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         return null;
     }
 
-    protected void setListShown(boolean shown) {
-        setListShown(shown, false);
-    }
+    protected void setViewMode(ViewMode viewMode) {
+        mViewMode = viewMode;
 
-    private void setListShown(boolean shown, boolean animate) {
-        mListShown = shown;
-        if (shown) {
-            if (animate) {
-                mProgressContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                        android.R.anim.fade_out));
-                mListContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                        android.R.anim.fade_in));
-            } else {
-                mProgressContainer.clearAnimation();
-                mListContainer.clearAnimation();
-            }
-            hideLoader();
-        } else {
-            if (animate) {
-                mProgressContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                        android.R.anim.fade_in));
-                mListContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                        android.R.anim.fade_out));
-            } else {
-                mProgressContainer.clearAnimation();
-                mListContainer.clearAnimation();
-            }
-            showLoader();
-        }
+        int recyclerViewVisibility = viewMode == ViewMode.NORMAL ? View.VISIBLE : View.GONE;
+        int emptyViewVisibility = viewMode == ViewMode.EMPTY ? View.VISIBLE : View.GONE;
+        int progressBarVisibility = viewMode == ViewMode.LOADING ? View.VISIBLE : View.GONE;
+
+        mRecyclerView.setVisibility(recyclerViewVisibility);
+        mEmptyContainer.setVisibility(emptyViewVisibility);
+        mProgressContainer.setVisibility(progressBarVisibility);
     }
 
     protected void addItem(ListItem item, int position) {
@@ -222,17 +221,6 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
             mAdapter.notifyItemInserted(position);
             mRecyclerView.smoothScrollToPosition(position);
         }
-    }
-
-    protected void showLoader() {
-        mProgressContainer.setVisibility(View.VISIBLE);
-        mListContainer.setVisibility(View.GONE);
-    }
-
-
-    protected void hideLoader() {
-        mProgressContainer.setVisibility(View.GONE);
-        mListContainer.setVisibility(View.VISIBLE);
     }
 
     protected void addHeader(View view) {
@@ -262,6 +250,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         View view = LayoutInflater.from(getContext()).inflate(layoutId, mRootView, true);
         mStaticHeader.addView(view);
     }
+
     protected void addStaticHeader(View headerView) {
         mStaticHeader.addView(headerView);
     }
@@ -270,6 +259,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         View view = LayoutInflater.from(getContext()).inflate(layoutId, mRootView, true);
         mStaticFooter.addView(view);
     }
+
     protected void addStaticFooter(View footerView) {
         mStaticFooter.addView(footerView);
     }
@@ -281,20 +271,24 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         return R.layout.c_view_empty_list;
     }
 
+    protected int getProgressLayoutId() {
+        return R.layout.c_view_loading;
+    }
+
     protected String getEmptyText() {
         return "No Results";
     }
 
     protected void setEmptyText(String text) {
-        emptyTextView.setText(text);
+        mEmptyTextView.setText(text);
     }
 
-    protected void showEmptyView() {
-        mEmptyView.setVisibility(View.VISIBLE);
+    protected void setEmptyImage(int imageResId) {
+        mEmptyImageView.setImageURI(imageResId);
     }
 
-    protected void hideEmptyView() {
-        mEmptyView.setVisibility(View.GONE);
+    protected void onRetryButtonClicked() {
+
     }
 
     public void refreshLoader() {

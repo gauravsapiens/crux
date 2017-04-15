@@ -9,17 +9,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <include
-        android:id="@+id/progress_container"
-        layout="@layout/c_view_loading"
-        android:visibility="gone" />
-
     <FrameLayout
         android:id="@+id/list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/static_footer"
         android:layout_below="@+id/static_header">
+
+        <ViewStub
+            android:id="@+id/progress_view_stub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <ViewStub
             android:id="@+id/empty_view_stub"
@@ -29,9 +29,9 @@
 
         <ViewStub
             android:id="@+id/recycler_view_stub"
-            android:inflatedId="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inflatedId="@+id/recycler_view" />
 
     </FrameLayout>
 

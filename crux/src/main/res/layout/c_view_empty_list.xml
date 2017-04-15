@@ -6,6 +6,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <com.crux.view.base.CruxImageView
+        android:id="@+id/empty_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <com.crux.view.base.CruxTextView
         android:id="@+id/empty_text"
         android:layout_width="match_parent"
@@ -18,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:text="@string/retry"
-        android:visibility="gone" />
+        android:text="@string/retry" />
 
 </LinearLayout>
