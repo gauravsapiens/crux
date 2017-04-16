@@ -13,7 +13,7 @@
         android:gravity="center"
         android:text="@string/failed_to_load_data" />
 
-    <com.crux.view.base.CruxButton
+    <com.crux.view.base.CruxImageButton
         android:id="@+id/retry_button"
         android:layout_width="wrap_content"
         android:layout_height="40dp"

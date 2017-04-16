@@ -18,7 +18,7 @@ import com.crux.OnItemClickListener;
 import com.crux.R;
 import com.crux.adapter.ListAdapter;
 import com.crux.util.CollectionUtils;
-import com.crux.view.base.CruxButton;
+import com.crux.view.base.CruxImageButton;
 import com.crux.view.item.ContainerItem;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     //error views
     private FrameLayout mErrorContainer;
-    private CruxButton mRetryButton;
+    private CruxImageButton mRetryButton;
 
     //Recycler view
     protected RecyclerView mRecyclerView;
@@ -83,7 +83,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         //error layout
         mErrorContainer = (FrameLayout) mRootView.findViewById(R.id.error_view_container);
         mErrorContainer.addView(getErrorLayoutId());
-        mRetryButton = (CruxButton) mErrorContainer.findViewById(R.id.retry_button);
+        mRetryButton = (CruxImageButton) mErrorContainer.findViewById(R.id.retry_button);
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
