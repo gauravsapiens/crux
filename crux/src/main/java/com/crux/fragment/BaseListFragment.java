@@ -127,17 +127,6 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         }
 
         mAdapter.setOnItemClickListener(this);
-        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                if (mAdapter.getItemCount() == 0) {
-                    setViewMode(ViewMode.EMPTY);
-                } else {
-                    setViewMode(ViewMode.NORMAL);
-                }
-            }
-        });
         mRecyclerView.setAdapter(decorateAdapter(mAdapter));
     }
 
