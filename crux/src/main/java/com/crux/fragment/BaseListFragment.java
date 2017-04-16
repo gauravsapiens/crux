@@ -85,7 +85,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         //error layout
         ViewStub errorViewStub = (ViewStub) mRootView.findViewById(R.id.error_view_stub);
         errorViewStub.setLayoutResource(getErrorLayoutId());
-        mErrorContainer = emptyViewStub.inflate();
+        mErrorContainer = errorViewStub.inflate();
         mRetryButton = (CruxButton) mErrorContainer.findViewById(R.id.retry_button);
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
