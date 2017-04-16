@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.crux.ItemListLoader;
 import com.crux.ListItem;
@@ -21,8 +19,6 @@ import com.crux.R;
 import com.crux.adapter.ListAdapter;
 import com.crux.util.CollectionUtils;
 import com.crux.view.base.CruxButton;
-import com.crux.view.base.CruxImageView;
-import com.crux.view.base.CruxTextView;
 import com.crux.view.item.ContainerItem;
 
 import java.util.ArrayList;
@@ -49,13 +45,12 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
 
     //Progress view
     private View mProgressContainer;
-    private ProgressBar mProgressBar;
-    private CruxTextView mProgressMessage;
 
     //empty views
     private View mEmptyContainer;
-    private CruxImageView mEmptyImageView;
-    private TextView mEmptyTextView;
+
+    //error views
+    private View mErrorContainer;
     private CruxButton mRetryButton;
 
     //Recycler view
@@ -66,7 +61,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     protected ViewMode mViewMode;
 
     public enum ViewMode {
-        NORMAL, LOADING, EMPTY
+        NORMAL, LOADING, EMPTY, ERROR
     }
 
     @Override
@@ -81,17 +76,17 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         ViewStub progressViewStub = (ViewStub) mRootView.findViewById(R.id.progress_view_stub);
         progressViewStub.setLayoutResource(getProgressLayoutId());
         mProgressContainer = progressViewStub.inflate();
-        mProgressBar = (ProgressBar) mProgressContainer.findViewById(R.id.progress_bar);
-        mProgressMessage = (CruxTextView) mProgressContainer.findViewById(R.id.progress_message);
 
         //empty layout
         ViewStub emptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
         emptyViewStub.setLayoutResource(getEmptyLayoutId());
         mEmptyContainer = emptyViewStub.inflate();
-        mEmptyImageView = (CruxImageView) mEmptyContainer.findViewById(R.id.empty_image);
-        mEmptyTextView = (TextView) mEmptyContainer.findViewById(R.id.empty_text);
-        mEmptyTextView.setText(getEmptyText());
-        mRetryButton = (CruxButton) mEmptyContainer.findViewById(R.id.retry_button);
+
+        //error layout
+        ViewStub errorViewStub = (ViewStub) mRootView.findViewById(R.id.error_view_stub);
+        errorViewStub.setLayoutResource(getErrorLayoutId());
+        mErrorContainer = emptyViewStub.inflate();
+        mRetryButton = (CruxButton) mErrorContainer.findViewById(R.id.retry_button);
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,12 +197,14 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         mViewMode = viewMode;
 
         int recyclerViewVisibility = viewMode == ViewMode.NORMAL ? View.VISIBLE : View.GONE;
-        int emptyViewVisibility = viewMode == ViewMode.EMPTY ? View.VISIBLE : View.GONE;
         int progressBarVisibility = viewMode == ViewMode.LOADING ? View.VISIBLE : View.GONE;
+        int emptyViewVisibility = viewMode == ViewMode.EMPTY ? View.VISIBLE : View.GONE;
+        int errorViewVisibility = viewMode == ViewMode.ERROR ? View.VISIBLE : View.GONE;
 
         mRecyclerView.setVisibility(recyclerViewVisibility);
-        mEmptyContainer.setVisibility(emptyViewVisibility);
         mProgressContainer.setVisibility(progressBarVisibility);
+        mEmptyContainer.setVisibility(emptyViewVisibility);
+        mErrorContainer.setVisibility(errorViewVisibility);
     }
 
     protected void addItem(ListItem item, int position) {
@@ -271,20 +268,12 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         return R.layout.c_view_empty_list;
     }
 
+    protected int getErrorLayoutId() {
+        return R.layout.c_view_error_list;
+    }
+
     protected int getProgressLayoutId() {
-        return R.layout.c_view_loading;
-    }
-
-    protected String getEmptyText() {
-        return "No Results";
-    }
-
-    protected void setEmptyText(String text) {
-        mEmptyTextView.setText(text);
-    }
-
-    protected void setEmptyImage(int imageResId) {
-        mEmptyImageView.setImageURI(imageResId);
+        return R.layout.c_view_progress_list;
     }
 
     protected void onRetryButtonClicked() {

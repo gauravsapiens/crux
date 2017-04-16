@@ -37,11 +37,6 @@ public class CartListFragment extends BaseMutableListFragment {
     }
 
     @Override
-    protected String getEmptyText() {
-        return "No items added to cart";
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         refreshLoader(true);

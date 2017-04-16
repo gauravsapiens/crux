@@ -6,6 +6,7 @@
     <string name="done">Done</string>
 
     <string name="no_results_message">No Results</string>
+    <string name="failed_to_load_data">Failed to load data</string>
     <string name="error_empty_selection_not_allowed">Empty Selection Not Allowed</string>
 
 </resources>
