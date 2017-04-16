@@ -44,13 +44,13 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     protected FrameLayout mStaticFooter;
 
     //Progress view
-    private View mProgressContainer;
+    private FrameLayout mProgressContainer;
 
     //empty views
-    private View mEmptyContainer;
+    private FrameLayout mEmptyContainer;
 
     //error views
-    private View mErrorContainer;
+    private FrameLayout mErrorContainer;
     private CruxButton mRetryButton;
 
     //Recycler view
@@ -73,19 +73,16 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         mStaticFooter = (FrameLayout) mRootView.findViewById(R.id.static_footer);
 
         //Progress layout
-        ViewStub progressViewStub = (ViewStub) mRootView.findViewById(R.id.progress_view_stub);
-        progressViewStub.setLayoutResource(getProgressLayoutId());
-        mProgressContainer = progressViewStub.inflate();
+        mProgressContainer = (FrameLayout) mRootView.findViewById(R.id.progress_container);
+        mProgressContainer.addView(getProgressLayoutId());
 
         //empty layout
-        ViewStub emptyViewStub = (ViewStub) mRootView.findViewById(R.id.empty_view_stub);
-        emptyViewStub.setLayoutResource(getEmptyLayoutId());
-        mEmptyContainer = emptyViewStub.inflate();
+        mEmptyContainer = (FrameLayout) mRootView.findViewById(R.id.empty_view_container);
+        mEmptyContainer.addView(getEmptyLayoutId());
 
         //error layout
-        ViewStub errorViewStub = (ViewStub) mRootView.findViewById(R.id.error_view_stub);
-        errorViewStub.setLayoutResource(getErrorLayoutId());
-        mErrorContainer = errorViewStub.inflate();
+        mErrorContainer = (FrameLayout) mRootView.findViewById(R.id.error_view_container);
+        mErrorContainer.addView(getErrorLayoutId());
         mRetryButton = (CruxButton) mErrorContainer.findViewById(R.id.retry_button);
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,16 +261,16 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     protected void customizeView() {
     }
 
-    protected int getEmptyLayoutId() {
-        return R.layout.c_view_empty_list;
+    protected View getEmptyLayoutId() {
+        return LayoutInflater.from(getContext()).inflate(R.layout.c_view_empty_list, null, true);
     }
 
-    protected int getErrorLayoutId() {
-        return R.layout.c_view_error_list;
+    protected View getErrorLayoutId() {
+        return LayoutInflater.from(getContext()).inflate(R.layout.c_view_error_list, null, true);
     }
 
-    protected int getProgressLayoutId() {
-        return R.layout.c_view_progress_list;
+    protected View getProgressLayoutId() {
+        return LayoutInflater.from(getContext()).inflate(R.layout.c_view_progress_list, null, true);
     }
 
     protected void onRetryButtonClicked() {

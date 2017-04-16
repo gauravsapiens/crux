@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/empty"
+<com.crux.view.base.CruxTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_text"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="vertical">
-
-    <com.crux.view.base.CruxTextView
-        android:id="@+id/empty_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/no_results_message" />
-
-</LinearLayout>
+    android:text="@string/no_results_message" />
