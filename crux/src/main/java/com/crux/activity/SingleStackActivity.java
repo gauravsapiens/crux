@@ -70,10 +70,10 @@ public abstract class SingleStackActivity extends DrawerActivity {
 
     @Override
     public void onBackPressed() {
-        if (popFromStack()) {
-            return;
+        popFromStack();
+        if (mFragmentStack.empty()) {
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
 
 
