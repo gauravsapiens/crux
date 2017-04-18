@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 /**
  * @author gauravarora
@@ -34,7 +35,8 @@ public class Crux {
         }
 
         //intialize Fresco
-        Fresco.initialize(context);
+        ImagePipelineConfig frescoConfig = configuration.getFrescoPipelineConfig();
+        Fresco.initialize(context, frescoConfig);
     }
 
     public static Context getContext() {

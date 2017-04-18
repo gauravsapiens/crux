@@ -2,6 +2,7 @@ package com.crux;
 
 import com.activeandroid.serializer.TypeSerializer;
 import com.crux.util.StringUtils;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 /**
  * @author gauravarora
@@ -17,6 +18,7 @@ public class Configuration {
     private int mDatabaseVersion;
     private Class[] mTableClasses;
     private Class<? extends TypeSerializer>[] mTypeSerializers;
+    private ImagePipelineConfig mFrescoPipelineConfig;
 
     //Others
     private String mDefaultFont;
@@ -85,6 +87,14 @@ public class Configuration {
     public Configuration setTypeSerializers(Class<? extends TypeSerializer>... typeSerializers) {
         this.mTypeSerializers = typeSerializers;
         return this;
+    }
+
+    public void setFrescoPipelineConfig(ImagePipelineConfig config) {
+        this.mFrescoPipelineConfig = config;
+    }
+
+    public ImagePipelineConfig getFrescoPipelineConfig() {
+        return this.mFrescoPipelineConfig;
     }
 
 }
