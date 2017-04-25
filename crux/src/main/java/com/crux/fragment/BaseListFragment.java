@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.crux.ItemListLoader;
 import com.crux.ListItem;
@@ -58,6 +59,8 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     protected RecyclerView.LayoutManager mLayoutManager;
     protected ListAdapter mAdapter;
 
+    // Headers
+    protected LinearLayout mHeaderContainer;
     protected ViewMode mViewMode;
 
     public enum ViewMode {
@@ -95,7 +98,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         ViewStub recyclerViewStub = (ViewStub) mRootView.findViewById(R.id.recycler_view_stub);
         recyclerViewStub.setLayoutResource(getRecyclerLayout());
         mRecyclerView = (RecyclerView) recyclerViewStub.inflate();
+        mRecyclerView.setNestedScrollingEnabled(false);
 
+        // Header and footer
+        mHeaderContainer = (LinearLayout) mRootView.findViewById(R.id.header_container);
         return mRootView;
     }
 
@@ -207,13 +213,19 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     }
 
     protected void addHeader(View view) {
-        mAdapter.addItem(new ContainerItem(view), 0);
-        mAdapter.notifyDataSetChanged();
+        mHeaderContainer.addView(view);
     }
 
-    protected void removeHeader() {
-        mAdapter.removeItem(0);
-        mAdapter.notifyDataSetChanged();
+    protected void removeHeader(int pos) {
+        mHeaderContainer.removeViewAt(pos);
+    }
+
+    protected boolean hasAnyHeader() {
+        return mHeaderContainer.getChildCount() > 0;
+    }
+
+    protected int getHeaderCount() {
+        return mHeaderContainer.getChildCount();
     }
 
     protected void addFooter(View view) {

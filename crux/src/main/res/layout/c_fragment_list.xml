@@ -1,51 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/static_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
 
-    <FrameLayout
-        android:id="@+id/list_container"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_above="@+id/static_footer"
         android:layout_below="@+id/static_header">
 
-        <FrameLayout
-            android:id="@+id/progress_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <FrameLayout
-            android:id="@+id/empty_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <FrameLayout
-            android:id="@+id/error_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <ViewStub
-            android:id="@+id/recycler_view_stub"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inflatedId="@+id/recycler_view" />
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <LinearLayout
+                android:id="@+id/header_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <FrameLayout
+                android:id="@+id/list_container"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/progress_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <FrameLayout
+                    android:id="@+id/empty_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <FrameLayout
+                    android:id="@+id/error_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <ViewStub
+                    android:id="@+id/recycler_view_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inflatedId="@+id/recycler_view"/>
+
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/static_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
