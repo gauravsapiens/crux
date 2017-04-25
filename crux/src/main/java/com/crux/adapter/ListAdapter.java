@@ -113,6 +113,11 @@ public class ListAdapter extends RecyclerView.Adapter {
         initializeItemsWithType();
     }
 
+    public void addItems(int position, List<ListItem> items) {
+        mItems.addAll(position, items);
+        initializeItemsWithType();
+    }
+
     public List<ListItem> getItems() {
         return mItems;
     }
