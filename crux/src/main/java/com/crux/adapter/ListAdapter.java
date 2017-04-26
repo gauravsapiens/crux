@@ -97,23 +97,35 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     public void addItem(ListItem item, int position) {
         if (CollectionUtils.isEmpty(mItems)) {
-            return;
+            mItems = new ArrayList<>();
         }
         mItems.add(position, item);
         initializeItemsWithType();
     }
 
     public void removeItem(int position) {
+        if(CollectionUtils.isEmpty(mItems)){
+            return;
+        }
+
         mItems.remove(position);
         initializeItemsWithType();
     }
 
     public void addItems(List<ListItem> items) {
+        if(mItems ==null){
+            mItems =  new ArrayList<>();
+        }
+
         mItems.addAll(items);
         initializeItemsWithType();
     }
 
     public void addItems(int position, List<ListItem> items) {
+        if(mItems ==null){
+            mItems =  new ArrayList<>();
+        }
+
         mItems.addAll(position, items);
         initializeItemsWithType();
     }
