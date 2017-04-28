@@ -194,6 +194,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     }
 
     protected void addItem(ListItem item, int position) {
+        addItem(item, position, false);
+    }
+
+    protected void addItem(ListItem item, int position, boolean scroll) {
         if (CollectionUtils.isEmpty(mAdapter.getItems())) {
             List<ListItem> items = new ArrayList<>();
             items.add(item);
@@ -202,11 +206,17 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         } else {
             mAdapter.addItem(item, position);
             mAdapter.notifyItemInserted(position);
-            mRecyclerView.smoothScrollToPosition(position);
+            if (scroll) {
+                mRecyclerView.smoothScrollToPosition(position);
+            }
         }
     }
 
     protected void addItems(List<ListItem> items, int position) {
+        addItems(items, position, false);
+    }
+
+    protected void addItems(List<ListItem> items, int position, boolean scroll) {
         if (CollectionUtils.isEmpty(mAdapter.getItems())) {
             List<ListItem> newItems = new ArrayList<>();
             items.addAll(newItems);
@@ -215,7 +225,9 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         } else {
             mAdapter.addItems(position, items);
             mAdapter.notifyItemInserted(position);
-            mRecyclerView.smoothScrollToPosition(position);
+            if (scroll) {
+                mRecyclerView.smoothScrollToPosition(position);
+            }
         }
     }
 
