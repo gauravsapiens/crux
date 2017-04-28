@@ -206,6 +206,19 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         }
     }
 
+    protected void addItems(List<ListItem> items, int position) {
+        if (CollectionUtils.isEmpty(mAdapter.getItems())) {
+            List<ListItem> newItems = new ArrayList<>();
+            items.addAll(newItems);
+            mAdapter.setRecyclableItems(newItems);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter.addItems(position, items);
+            mAdapter.notifyItemInserted(position);
+            mRecyclerView.smoothScrollToPosition(position);
+        }
+    }
+
     protected void addHeader(View view) {
         mAdapter.addItem(new ContainerItem(view), 0);
         mAdapter.notifyDataSetChanged();
