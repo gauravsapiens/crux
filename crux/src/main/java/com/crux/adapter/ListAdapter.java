@@ -11,6 +11,7 @@ import com.crux.DefinedListItem;
 import com.crux.ListItem;
 import com.crux.ListSearchableItem;
 import com.crux.OnItemClickListener;
+import com.crux.OnItemLongClickListener;
 import com.crux.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class ListAdapter extends RecyclerView.Adapter {
 
     private OnItemClickListener mOnItemClickListener;
+    private OnItemLongClickListener mOnItemLongClickListener;
     private List<ListItem> mOriginalItems;
     private List<ListItem> mItems;
     private Context mContext;
@@ -58,6 +60,7 @@ public class ListAdapter extends RecyclerView.Adapter {
         }
         item.onBindViewHolder(viewHolder, i, mContext);
         viewHolder.itemView.setOnClickListener(getOnClickListener(item, i));
+        viewHolder.itemView.setOnLongClickListener(getLongClickListener(item, i));
     }
 
     @Override
@@ -138,6 +141,10 @@ public class ListAdapter extends RecyclerView.Adapter {
         mOnItemClickListener = onRecyclableItemListener;
     }
 
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
+        mOnItemLongClickListener = onItemLongClickListener;
+    }
+
     public Filter getFilter() {
         if (mFilter == null) {
             mFilter = new ItemFilter();
@@ -166,6 +173,19 @@ public class ListAdapter extends RecyclerView.Adapter {
                 if (mOnItemClickListener != null) {
                     mOnItemClickListener.onRecyclableItemClicked(itemz, position);
                 }
+            }
+        };
+    }
+
+    private View.OnLongClickListener getLongClickListener(final ListItem item, final int position) {
+        return new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mOnItemLongClickListener != null) {
+                    mOnItemLongClickListener.onRecyclableItemLongClicked(item, position);
+                    return true;
+                }
+                return false;
             }
         };
     }

@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.crux.ItemListLoader;
 import com.crux.ListItem;
 import com.crux.OnItemClickListener;
+import com.crux.OnItemLongClickListener;
 import com.crux.R;
 import com.crux.adapter.ListAdapter;
 import com.crux.util.CollectionUtils;
@@ -30,7 +31,7 @@ import java.util.List;
  * @author gauravarora
  * @since 27/04/16.
  */
-public abstract class BaseListFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<List<ListItem>>, ItemListLoader.ItemLoaderCallbacks<ListItem>, OnItemClickListener {
+public abstract class BaseListFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<List<ListItem>>, ItemListLoader.ItemLoaderCallbacks<ListItem>, OnItemClickListener,OnItemLongClickListener {
 
     public static final int ORIENTATION_HORIZONTAL = LinearLayoutManager.HORIZONTAL;
     public static final int ORIENTATION_VERTICAL = LinearLayoutManager.VERTICAL;
@@ -127,6 +128,7 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         }
 
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemLongClickListener(this);
         mRecyclerView.setAdapter(decorateAdapter(mAdapter));
     }
 
@@ -162,6 +164,11 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     }
 
     @Override
+    public void onRecyclableItemLongClicked(ListItem item, int position) {
+        onItemLongClicked(item, position);
+    }
+
+    @Override
     public void onLoaderReset(Loader<List<ListItem>> listLoader) {
 
     }
@@ -171,6 +178,8 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
     }
 
     public abstract void onItemClicked(ListItem item, long position);
+    public void onItemLongClicked(ListItem item, int position) {
+    }
 
     protected ItemListLoader getItemListLoader() {
         final Loader<List<ListItem>> loader = getLoaderManager().getLoader(ITEM_LIST_LOADER_ID);
