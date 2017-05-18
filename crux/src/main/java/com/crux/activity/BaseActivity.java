@@ -31,6 +31,9 @@ public class BaseActivity extends AppCompatActivity {
     private ViewStub mAppBarViewStub;
     private ViewStub mContentViewStub;
 
+    private boolean isActivityStarted;
+    private boolean isActivityResumed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,38 @@ public class BaseActivity extends AppCompatActivity {
     protected void addContentView(int layoutResourceId) {
         mContentViewStub.setLayoutResource(layoutResourceId);
         mContentViewStub.inflate();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActivityStarted = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isActivityResumed = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isActivityResumed = false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActivityStarted = false;
+    }
+
+    protected boolean isActivityResumed() {
+        return isActivityResumed;
+    }
+
+    protected boolean isActivityStarted() {
+        return isActivityStarted;
     }
 
     protected int getAppBarLayout() {
