@@ -52,7 +52,7 @@ public abstract class SingleStackActivity extends DrawerActivity {
     }
 
     protected void replaceFragment(Class fragmentClazz, Bundle args, String fragmentTag) {
-        mFragment = FragmentUtils.replaceFragment(this, R.id.content_frame, fragmentClazz, args, fragmentTag);
+        mFragment = FragmentUtils.replaceFragment(this, R.id.content_frame, fragmentClazz, args, fragmentTag, false, false);
         mFragmentStack.pop();
         mFragmentStack.push(fragmentTag);
     }
