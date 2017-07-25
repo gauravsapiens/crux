@@ -348,4 +348,10 @@ public abstract class BaseListFragment extends BaseFragment implements LoaderMan
         return mRecyclerView;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRetryButton.setOnClickListener(null);
+    }
+
 }

@@ -104,4 +104,10 @@ public abstract class BaseMutableListFragment extends BaseListFragment {
         return inflater.inflate(R.layout.c_view_loading_footer, mRecyclerView, false);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRecyclerView.removeOnScrollListener(mOnScrollListener);
+    }
+
 }
