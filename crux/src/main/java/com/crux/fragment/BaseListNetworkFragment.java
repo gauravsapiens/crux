@@ -175,7 +175,7 @@ public abstract class BaseListNetworkFragment<Response, ListData> extends BaseMu
         onEmptyData();
     }
 
-    private enum RequestType {
+    public enum RequestType {
         NEW, PAGINATION_BOTTOM, PAGINATION_TOP
     }
 
