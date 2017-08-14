@@ -32,7 +32,7 @@ public class CollectionUtils {
         return new ArrayList<>(capacity);
     }
 
-    public static <From, To> Collection<To> to(Collection<From> collection, Transformer<From, To> transformer) {
+    public static <From, To> Collection<To> transform(Collection<From> collection, Transformer<From, To> transformer) {
         if (isEmpty(collection) || transformer == null) {
             return newArrayList();
         }
