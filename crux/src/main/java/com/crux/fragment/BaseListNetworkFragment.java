@@ -209,9 +209,11 @@ public abstract class BaseListNetworkFragment<Response, ListData> extends BaseMu
             List<ListData> responseList = transform(response);
             switch (mRequestType) {
                 case NEW:
+                    mLastBottomPaginationResponse = response;
                     appendItems(responseList);
                     onLoadFinished();
                     break;
+
                 case PAGINATION_TOP:
                     mLastTopPaginationResponse = response;
                     removeTopPaginationLoader();
@@ -219,6 +221,7 @@ public abstract class BaseListNetworkFragment<Response, ListData> extends BaseMu
                         appendItemsAtTop(responseList);
                     }
                     break;
+
                 case PAGINATION_BOTTOM:
                     mLastBottomPaginationResponse = response;
                     removeBottomPaginationLoader();
