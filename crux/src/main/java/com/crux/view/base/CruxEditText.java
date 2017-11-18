@@ -46,7 +46,7 @@ public class CruxEditText extends AppCompatEditText {
         String font = getDefaultFont();
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CruxTextView);
-            font = typedArray.getString(R.styleable.CruxTextView_font);
+            font = typedArray.getString(R.styleable.CruxTextView_typeface);
             typedArray.recycle();
         }
 

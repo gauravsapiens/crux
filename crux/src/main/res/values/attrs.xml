@@ -2,7 +2,7 @@
 <resources>
 
     <declare-styleable name="CruxTextView">
-        <attr name="font" format="string" />
+        <attr name="typeface" format="string" />
     </declare-styleable>
 
 </resources>

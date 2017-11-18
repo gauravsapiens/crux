@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.crux.Crux;
 import com.crux.R;
@@ -47,7 +46,7 @@ public class CruxTextView extends AppCompatTextView {
         String font = getDefaultFont();
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CruxTextView);
-            font = typedArray.getString(R.styleable.CruxTextView_font);
+            font = typedArray.getString(R.styleable.CruxTextView_typeface);
             typedArray.recycle();
         }
 
